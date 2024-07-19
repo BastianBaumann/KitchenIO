@@ -21,11 +21,29 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Restore dependencies
-        run: dotnet restore KitchenAPI/KitchenAPI.csproj ClassLibrary/ClassLibrary.csproj Frontend/Frontend.csproj UnitTests/UnitTests.csproj
+      - name: Restore dependencies for KitchenAPI
+        run: dotnet restore KitchenAPI/KitchenAPI.csproj
 
-      - name: Build
-        run: dotnet build KitchenAPI/KitchenAPI.csproj ClassLibrary/ClassLibrary.csproj Frontend/Frontend.csproj UnitTests/UnitTests.csproj --no-restore
+      - name: Restore dependencies for ClassLibrary
+        run: dotnet restore ClassLibrary/ClassLibrary.csproj
+
+      - name: Restore dependencies for Frontend
+        run: dotnet restore Frontend/Frontend.csproj
+
+      - name: Restore dependencies for UnitTests
+        run: dotnet restore UnitTests/UnitTests.csproj
+
+      - name: Build KitchenAPI
+        run: dotnet build KitchenAPI/KitchenAPI.csproj --no-restore
+
+      - name: Build ClassLibrary
+        run: dotnet build ClassLibrary/ClassLibrary.csproj --no-restore
+
+      - name: Build Frontend
+        run: dotnet build Frontend/Frontend.csproj --no-restore
+
+      - name: Build UnitTests
+        run: dotnet build UnitTests/UnitTests.csproj --no-restore
 
       - name: Run tests
         run: dotnet test UnitTests/UnitTests.csproj --no-build --verbosity normal
