@@ -49,7 +49,7 @@ jobs:
         run: dotnet test UnitTests/UnitTests.csproj --no-build --verbosity normal
 
       - name: Lint code
-        run: dotnet format --check
+        run: dotnet format --verify-nochanges
 
       - name: CSV Validation
         run: pwsh .github/workflows/validate-csv.ps1
