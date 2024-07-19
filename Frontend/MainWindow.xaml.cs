@@ -20,5 +20,10 @@ namespace Frontend
         {
             InitializeComponent();
         }
+
+        public void testFunc(object sender, RoutedEventArgs e)
+        {
+            testLabel.Content = "Test";
+        }
     }
 }
