@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{49C28E56-75B4-4B9F-AE58-6FABAA6F546E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF409825-7B72-44CB-AF28-9EBA460EC6B3} = {EF409825-7B72-44CB-AF28-9EBA460EC6B3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KitchenAPI", "KitchenAPI\KitchenAPI.csproj", "{08549370-4171-49D4-8865-47F81B98BE90}"
 EndProject
