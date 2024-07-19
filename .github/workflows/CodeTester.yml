@@ -33,7 +33,5 @@ jobs:
       - name: Lint code
         run: dotnet format --check
         
-
-      #- name: CSV Validation (Optional)
-      #  run: |
-      #   echo "CSV Validation step"
+      - name: CSV Validation
+        run: pwsh .github/workflows/validate-csv.ps1
