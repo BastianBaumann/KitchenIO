@@ -13,5 +13,12 @@ namespace KitchenAPI.Controllers
             var testProduct = newHandler.testProduct();
             return Json(testProduct);
         }
+
+        [HttpGet("GetTest2")]
+        public async Task<JsonResult> testProduct2()
+        {
+            var testProduct = newHandler.testProduct2();
+            return Json(testProduct);
+        }
     }
 }
