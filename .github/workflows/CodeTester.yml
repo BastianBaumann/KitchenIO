@@ -22,16 +22,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore KitchenAPI/KitchenAPI.csproj ClassLibrary/ClassLibrary.csproj Frontend/Frontend.csproj UnitTests/UnitTests.csproj
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build KitchenAPI/KitchenAPI.csproj ClassLibrary/ClassLibrary.csproj Frontend/Frontend.csproj UnitTests/UnitTests.csproj --no-restore
 
       - name: Run tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test UnitTests/UnitTests.csproj --no-build --verbosity normal
 
       - name: Lint code
         run: dotnet format --check
-        
+
       - name: CSV Validation
         run: pwsh .github/workflows/validate-csv.ps1
