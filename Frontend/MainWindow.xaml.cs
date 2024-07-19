@@ -19,22 +19,17 @@ namespace Frontend
     /// </summary>
     public partial class MainWindow : Window
     {
+        TestRequests testRequestMaker = new TestRequests();
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public void testFunc(object sender, RoutedEventArgs e)
+        public async void testFunc(object sender, RoutedEventArgs e)
         {
-            KitchenIO.Objects.Product product = new KitchenIO.Objects.Product();
-            product.Id = Guid.NewGuid();
-            product.name = testbarcode.Text.ToString();
-            product.barcode = Convert.ToInt32(product.name);
-            product.amount = 5;
-            product.price = 12.50;
-            product.weight = 120;
 
-            testLabel.Content = "success";
+            Product newProduct = await testRequestMaker.TestProductCreation();
+            testLabel.Content = newProduct.name.ToString();
         }
     }
 }
