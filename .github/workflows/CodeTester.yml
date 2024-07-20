@@ -5,7 +5,9 @@ on:
     branches:
       - master
     types:
-      - closed
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   build:
