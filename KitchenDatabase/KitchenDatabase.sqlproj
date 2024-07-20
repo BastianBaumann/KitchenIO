@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{7ffed3fe-9cbd-417b-95d5-79ddcbd4615c}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -57,9 +57,19 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="InventorieScripts" />
+    <Folder Include="ProductScripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\ProductTable.sql" />
+    <Build Include="Tables\InventorieTable.sql" />
+    <Build Include="ProductScripts\INSERT_Products.sql" />
+    <Build Include="InventorieScripts\INSERT_Inventory.sql" />
+    <Build Include="ProductScripts\GETALL_Products.sql" />
+    <Build Include="ProductScripts\GETByID_Products.sql" />
+    <Build Include="ProductScripts\UPDATE_Product.sql" />
+    <Build Include="ProductScripts\DELETE_Product.sql" />
+    <Build Include="ProductScripts\GETByBarcode_Products.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="KitchenDatabase.refactorlog" />

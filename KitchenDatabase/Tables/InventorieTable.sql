@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[InventorieTable]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [ProductID] UNIQUEIDENTIFIER NOT NULL, 
+    [Amount] FLOAT NOT NULL, 
+    [Weight] FLOAT NULL, 
+    [EP] DATETIME NOT NULL
+)

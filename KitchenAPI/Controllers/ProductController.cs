@@ -1,24 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KitchenAPI.Handlers;
+using Microsoft.AspNetCore.Mvc;
+using KitchenIO.Objects;
 
 namespace KitchenAPI.Controllers
 {
     [Route("API/")]
     public class ProductController : Controller
     {
-        ProductHandler newHandler = new ProductHandler();
+        ProductHandler productHandler = new ProductHandler();
 
-        [HttpGet("GetTest")]
-        public async Task<JsonResult> testProduct()
+        [HttpGet("GetAllProducts")]
+        public async Task<JsonResult> GetAllProducts()
         {
-            var testProduct = newHandler.testProduct();
-            return Json(testProduct);
+            List<Product> ProductList = await productHandler.GetAll();
+            return Json(ProductList);
         }
 
-        [HttpGet("GetTest2")]
-        public async Task<JsonResult> testProduct2()
+        [HttpPost("CreateProduct")] //Create a location
+        public async Task<JsonResult> CreateLocation([FromBody] Product newProduct)
         {
-            var testProduct = newHandler.testProduct2();
-            return Json(testProduct);
+            string answer = await productHandler.Create(newProduct);
+            return Json(answer);
         }
     }
 }
