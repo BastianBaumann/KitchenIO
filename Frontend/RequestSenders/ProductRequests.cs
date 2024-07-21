@@ -1,4 +1,5 @@
-﻿using KitchenIO.Objects;
+﻿using ClassLibrary.Objects;
+using KitchenIO.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Frontend
 {
-    public class TestRequests
+    public class ProductRequests
     {
         
         public async Task<List<ProductRef>> PullProductRefs()
@@ -83,6 +84,46 @@ namespace Frontend
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
                     return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                }
+            }
+        }
+
+        public async Task<ProductRef> GetProductRefByBarcode(int barcode)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // URL mit Barcode als Query-Parameter
+                string url = $"https://localhost:7135/API/GetProductByBarcode?barcode={barcode}";
+
+                try
+                {
+                    // Sende die GET-Anfrage
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    // Sicherstellen, dass der Statuscode Erfolg signalisiert
+                    response.EnsureSuccessStatusCode();
+
+                    // Antwortinhalt als String lesen
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    // Deserialisieren der JSON-Antwort in ein ProductRef-Objekt
+                    ProductRef answer = JsonConvert.DeserializeObject<ProductRef>(responseBody);
+
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    // Fehlerbehandlung bei HTTP-Anfragen
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return null; // Rückgabe von null statt einer leeren Instanz, um anzuzeigen, dass ein Fehler aufgetreten ist
+                }
+                catch (JsonException e)
+                {
+                    // Fehlerbehandlung bei JSON-Verarbeitung
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return null; // Rückgabe von null statt einer leeren Instanz
                 }
             }
         }

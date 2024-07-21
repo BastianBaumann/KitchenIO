@@ -21,36 +21,28 @@ namespace Frontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        TestRequests RequestMaker = new TestRequests();
+        ProductRequests ProductRequestMaker = new ProductRequests();
+
         ObservableCollection<ProductRef> ProductList = new ObservableCollection<ProductRef>();
 
         public MainWindow()
         {
             InitializeComponent();
             dataGrid.ItemsSource = ProductList;
-            getAllProductRefs();
+            UpdateProductRefs();
         }
 
-        /*
-        public async void testFunc(object sender, RoutedEventArgs e)
-        {
-
-            Product newProduct = await RequestMaker.sendGetRequest("https://localhost:7135/API/GetTest");
-            testLabel.Content = newProduct.Name.ToString();
-        }
-        */
-
-        public async void getAllProductRefs()
+        public async void UpdateProductRefs()
         {
             ProductList.Clear();
-            List<ProductRef> PL = await RequestMaker.PullProductRefs();
+            List<ProductRef> PL = await ProductRequestMaker.PullProductRefs();
             foreach(ProductRef product in PL)
             {
                 ProductList.Add(product);
             }
         }
 
-        public async void createProductRef(object sender, RoutedEventArgs e)
+        public async void createProductRefButton(object sender, RoutedEventArgs e)
         {
             ProductRef newProductRef = new ProductRef();
             newProductRef.Id = Guid.NewGuid();
@@ -59,7 +51,7 @@ namespace Frontend
             newProductRef.Price = Convert.ToDouble(testPrice.Text);
             newProductRef.Type = Convert.ToInt32(testType.Text);
 
-            string result = await RequestMaker.PushProductRef(newProductRef);
+            string result = await ProductRequestMaker.PushProductRef(newProductRef);
 
             testName.Text = "";
             testbarcode.Text = "";
@@ -67,16 +59,24 @@ namespace Frontend
             testType.Text = "";
 
 
-            getAllProductRefs();
+            UpdateProductRefs();
         }
 
-        public async void createInvProduct(object sender, RoutedEventArgs e)
+        public async void AddProductButton(object sender, RoutedEventArgs e)
         {
+
             Product newProduct = new Product();
 
+            //int Barcode = Convert.ToInt32(newProductbarcode.Text);
+            ProductRef foundProductRef = await ProductRequestMaker.GetProductRefByBarcode(Convert.ToInt32(newProductbarcode.Text));
+
+            newProduct.ProductId = foundProductRef.Id;
             newProduct.Id = Guid.NewGuid();
-            newProduct.Amount = 1;
-            newProduct.Weight = 1;
+            newProduct.Amount = Convert.ToDouble(newProductAmount.Text);
+            newProduct.Weight = Convert.ToDouble(newProductWeight.Text);
+            DateTime newDate = EpDate.SelectedDate.Value;
+            newProduct.EP = newDate;
+
 
         }
     }

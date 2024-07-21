@@ -10,8 +10,8 @@ namespace ClassLibrary.Objects
     {
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }
-        public float Amount { get; set; }
-        public float Weight { get; set; }
+        public double Amount { get; set; }
+        public double Weight { get; set; }
         public DateTime EP {  get; set; }
     }
 }
