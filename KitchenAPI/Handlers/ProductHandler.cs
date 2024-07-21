@@ -1,4 +1,5 @@
-﻿using KitchenIO.Objects;
+﻿using ClassLibrary.Objects;
+using KitchenIO.Objects;
 using Microsoft.Data.SqlClient;
 
 namespace KitchenAPI.Handlers
@@ -7,7 +8,7 @@ namespace KitchenAPI.Handlers
     {
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=KitchenDB;Integrated Security=True";
 
-        public async Task<string> Create(Product newProduct)
+        public async Task<string> Create(ProductRef newProduct)
         {
             //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
@@ -49,9 +50,9 @@ namespace KitchenAPI.Handlers
             }
         }
 
-        public async Task<List<Product>> GetAll()
+        public async Task<List<ProductRef>> GetAll()
         {
-            List<Product> ProductList = new List<Product>();
+            List<ProductRef> ProductList = new List<ProductRef>();
 
             //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
@@ -78,7 +79,7 @@ namespace KitchenAPI.Handlers
 
                 while (await rd.ReadAsync())
                 {
-                    Product newPr = new Product();
+                    ProductRef newPr = new ProductRef();
 
                     newPr.Id = rd.GetGuid(0);
                     newPr.Name = rd.GetString(1);

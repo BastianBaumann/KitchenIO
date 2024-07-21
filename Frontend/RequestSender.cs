@@ -12,7 +12,7 @@ namespace Frontend
     public class TestRequests
     {
         
-        public async Task<List<Product>> PullProducts()
+        public async Task<List<ProductRef>> PullProductRefs()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -28,7 +28,7 @@ namespace Frontend
                     string responseBody = await response.Content.ReadAsStringAsync();
 
 
-                    List<Product> answer = JsonConvert.DeserializeObject<List<Product>>(responseBody);
+                    List<ProductRef> answer = JsonConvert.DeserializeObject<List<ProductRef>>(responseBody);
 
                     return answer;
                 }
@@ -36,18 +36,18 @@ namespace Frontend
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return new List<Product>();
+                    return new List<ProductRef>();
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return new List<Product>();
+                    return new List<ProductRef>();
                 }
             }
         }
 
-        public async Task<string> PushProduct(Product product)
+        public async Task<string> PushProductRef(ProductRef product)
         {
             using (HttpClient client = new HttpClient())
             {

@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KitchenIO.Objects
+namespace ClassLibrary.Objects
 {
     public class Product
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public int Barcode { get; set; }
-        public double Price { get; set; }
-        public int Type { get; set; }
+        public Guid ProductId { get; set; }
+        public float Amount { get; set; }
+        public float Weight { get; set; }
+        public DateTime EP {  get; set; }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClassLibrary.Objects;
 using KitchenIO.Objects;
 
 namespace Frontend
@@ -21,13 +22,13 @@ namespace Frontend
     public partial class MainWindow : Window
     {
         TestRequests RequestMaker = new TestRequests();
-        ObservableCollection<Product> ProductList = new ObservableCollection<Product>();
+        ObservableCollection<ProductRef> ProductList = new ObservableCollection<ProductRef>();
 
         public MainWindow()
         {
             InitializeComponent();
             dataGrid.ItemsSource = ProductList;
-            getAllProducts();
+            getAllProductRefs();
         }
 
         /*
@@ -39,33 +40,44 @@ namespace Frontend
         }
         */
 
-        public async void getAllProducts()
+        public async void getAllProductRefs()
         {
             ProductList.Clear();
-            List<Product> PL = await RequestMaker.PullProducts();
-            foreach(Product product in PL)
+            List<ProductRef> PL = await RequestMaker.PullProductRefs();
+            foreach(ProductRef product in PL)
             {
                 ProductList.Add(product);
             }
         }
 
-        public async void createProduct(object sender, RoutedEventArgs e)
+        public async void createProductRef(object sender, RoutedEventArgs e)
         {
-            Product newProduct = new Product();
-            newProduct.Id = Guid.NewGuid();
-            newProduct.Name = testName.Text;
-            newProduct.Barcode = Convert.ToInt32(testbarcode.Text);
-            newProduct.Price = Convert.ToDouble(testPrice.Text);
-            newProduct.Type = Convert.ToInt32(testType.Text);
+            ProductRef newProductRef = new ProductRef();
+            newProductRef.Id = Guid.NewGuid();
+            newProductRef.Name = testName.Text;
+            newProductRef.Barcode = Convert.ToInt32(testbarcode.Text);
+            newProductRef.Price = Convert.ToDouble(testPrice.Text);
+            newProductRef.Type = Convert.ToInt32(testType.Text);
 
-            string result = await RequestMaker.PushProduct(newProduct);
+            string result = await RequestMaker.PushProductRef(newProductRef);
 
             testName.Text = "";
             testbarcode.Text = "";
             testPrice.Text = "";
             testType.Text = "";
 
-            getAllProducts();
+
+            getAllProductRefs();
+        }
+
+        public async void createInvProduct(object sender, RoutedEventArgs e)
+        {
+            Product newProduct = new Product();
+
+            newProduct.Id = Guid.NewGuid();
+            newProduct.Amount = 1;
+            newProduct.Weight = 1;
+
         }
     }
 }

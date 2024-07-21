@@ -12,12 +12,12 @@ namespace KitchenAPI.Controllers
         [HttpGet("GetAllProducts")]
         public async Task<JsonResult> GetAllProducts()
         {
-            List<Product> ProductList = await productHandler.GetAll();
+            List<ProductRef> ProductList = await productHandler.GetAll();
             return Json(ProductList);
         }
 
         [HttpPost("CreateProduct")] //Create a location
-        public async Task<JsonResult> CreateLocation([FromBody] Product newProduct)
+        public async Task<JsonResult> CreateLocation([FromBody] ProductRef newProduct)
         {
             string answer = await productHandler.Create(newProduct);
             return Json(answer);
