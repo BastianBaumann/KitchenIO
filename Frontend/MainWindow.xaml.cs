@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClassLibrary.Objects;
+using Frontend.RequestSenders;
 using KitchenIO.Objects;
 
 namespace Frontend
@@ -22,14 +23,18 @@ namespace Frontend
     public partial class MainWindow : Window
     {
         ProductRequests ProductRequestMaker = new ProductRequests();
+        InventoryRequests InventoryerquestMaker = new InventoryRequests();
 
         ObservableCollection<ProductRef> ProductList = new ObservableCollection<ProductRef>();
+        ObservableCollection<Product> InventoryList = new ObservableCollection<Product>();
 
         public MainWindow()
         {
             InitializeComponent();
             dataGrid.ItemsSource = ProductList;
+            ProductdataGrid.ItemsSource = InventoryList;
             UpdateProductRefs();
+            UpdateInventory();
         }
 
         public async void UpdateProductRefs()
@@ -39,6 +44,17 @@ namespace Frontend
             foreach(ProductRef product in PL)
             {
                 ProductList.Add(product);
+            }
+        }
+
+        public async void UpdateInventory()
+        {
+            InventoryList.Clear();
+            List<Product> PL = await InventoryerquestMaker.GetInventory();
+
+            foreach(Product product in PL)
+            {
+                InventoryList.Add(product);
             }
         }
 
@@ -70,14 +86,19 @@ namespace Frontend
             //int Barcode = Convert.ToInt32(newProductbarcode.Text);
             ProductRef foundProductRef = await ProductRequestMaker.GetProductRefByBarcode(Convert.ToInt32(newProductbarcode.Text));
 
-            newProduct.ProductId = foundProductRef.Id;
-            newProduct.Id = Guid.NewGuid();
-            newProduct.Amount = Convert.ToDouble(newProductAmount.Text);
-            newProduct.Weight = Convert.ToDouble(newProductWeight.Text);
-            DateTime newDate = EpDate.SelectedDate.Value;
-            newProduct.EP = newDate;
+            if(foundProductRef != null)
+            {
+                newProduct.ProductId = foundProductRef.Id;
+                newProduct.Id = Guid.NewGuid();
+                newProduct.Amount = Convert.ToDouble(newProductAmount.Text);
+                newProduct.Weight = Convert.ToDouble(newProductWeight.Text);
+                DateTime newDate = EpDate.SelectedDate.Value;
+                newProduct.EP = newDate;
 
+                InventoryerquestMaker.AddToInventorie(newProduct);
 
+            }
+            UpdateInventory();
         }
     }
 }
