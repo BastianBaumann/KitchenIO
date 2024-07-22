@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[GETByBarcode_Products]
-	@Barcode int
+	@Barcode varchar(50)
 AS
 BEGIN
 SELECT Id,Name,Barcode,Price,Type FROM ProductTable

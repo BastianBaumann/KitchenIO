@@ -82,7 +82,7 @@ namespace KitchenAPI.Handlers
 
                     newPr.Id = rd.GetGuid(0);
                     newPr.Name = rd.GetString(1);
-                    newPr.Barcode = rd.GetInt32(2);
+                    newPr.Barcode = rd.GetString(2);
                     newPr.Price = rd.GetDouble(3);
                     newPr.Type = rd.GetInt32(4);
 
@@ -101,7 +101,7 @@ namespace KitchenAPI.Handlers
                 return ProductList;
             }
         }
-        public async Task<ProductRef> GetByBarcode(int barcode)
+        public async Task<ProductRef> GetByBarcode(string barcode)
         {
             ProductRef newPr = new ProductRef();
             //try creating the connection string, gives back empty list if fails
@@ -134,7 +134,7 @@ namespace KitchenAPI.Handlers
 
                     newPr.Id = rd.GetGuid(0);
                     newPr.Name = rd.GetString(1);
-                    newPr.Barcode = rd.GetInt32(2);
+                    newPr.Barcode = rd.GetString(2);
                     newPr.Price = rd.GetDouble(3);
                     newPr.Type = rd.GetInt32(4);
 

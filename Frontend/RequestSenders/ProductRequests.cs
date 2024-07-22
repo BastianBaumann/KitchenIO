@@ -88,7 +88,7 @@ namespace Frontend
             }
         }
 
-        public async Task<ProductRef> GetProductRefByBarcode(int barcode)
+        public async Task<ProductRef> GetProductRefByBarcode(string barcode)
         {
             using (HttpClient client = new HttpClient())
             {

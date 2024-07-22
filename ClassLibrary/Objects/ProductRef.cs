@@ -11,7 +11,7 @@ namespace KitchenIO.Objects
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public int Barcode { get; set; }
+        public string Barcode { get; set; }
         public double Price { get; set; }
         public int Type { get; set; }
     }

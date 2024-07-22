@@ -17,7 +17,7 @@ namespace KitchenAPI.Controllers
         }
 
         [HttpGet("GetProductByBarcode")]
-        public async Task<IActionResult> GetProductByBarcode([FromQuery] int barcode)
+        public async Task<IActionResult> GetProductByBarcode([FromQuery] string barcode)
         {
             ProductRef foundProduct = await productHandler.GetByBarcode(barcode);
             return Ok(foundProduct);

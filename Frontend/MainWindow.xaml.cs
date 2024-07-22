@@ -63,7 +63,7 @@ namespace Frontend
             ProductRef newProductRef = new ProductRef();
             newProductRef.Id = Guid.NewGuid();
             newProductRef.Name = testName.Text;
-            newProductRef.Barcode = Convert.ToInt32(testbarcode.Text);
+            newProductRef.Barcode = testbarcode.Text;
             newProductRef.Price = Convert.ToDouble(testPrice.Text);
             newProductRef.Type = Convert.ToInt32(testType.Text);
 
@@ -84,9 +84,9 @@ namespace Frontend
             Product newProduct = new Product();
 
             //int Barcode = Convert.ToInt32(newProductbarcode.Text);
-            ProductRef foundProductRef = await ProductRequestMaker.GetProductRefByBarcode(Convert.ToInt32(newProductbarcode.Text));
+            ProductRef foundProductRef = await ProductRequestMaker.GetProductRefByBarcode(newProductbarcode.Text);
 
-            if(foundProductRef != null)
+            if(foundProductRef.Id.ToString() != "")
             {
                 newProduct.ProductId = foundProductRef.Id;
                 newProduct.Id = Guid.NewGuid();
@@ -97,6 +97,11 @@ namespace Frontend
 
                 InventoryerquestMaker.AddToInventorie(newProduct);
 
+                newProductbarcode.Text = "";
+                newProductAmount.Text = "";
+                newProductWeight.Text = "";
+
+                UpdateInventory();
             }
             UpdateInventory();
         }
