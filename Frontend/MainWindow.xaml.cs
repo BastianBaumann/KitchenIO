@@ -22,6 +22,8 @@ namespace Frontend
     /// </summary>
     public partial class MainWindow : Window
     {
+        Guid ownerID = new Guid("A3149C8F-9F3D-44B7-94B9-30B01873101C");
+
         ProductRequests ProductRequestMaker = new ProductRequests();
         InventoryRequests InventoryerquestMaker = new InventoryRequests();
 
@@ -50,7 +52,7 @@ namespace Frontend
         public async void UpdateInventory()
         {
             InventoryList.Clear();
-            List<Product> ProductL = await InventoryerquestMaker.GetInventory();
+            List<Product> ProductL = await InventoryerquestMaker.GetInventoryByOwner(ownerID);
 
             foreach(Product product in ProductL)
             {
@@ -94,6 +96,7 @@ namespace Frontend
                 newProduct.Weight = Convert.ToDouble(newProductWeight.Text);
                 DateTime newDate = EpDate.SelectedDate.Value;
                 newProduct.EP = newDate;
+                newProduct.Owner = ownerID;
 
                 string result = await InventoryerquestMaker.AddToInventorie(newProduct);
 
@@ -104,9 +107,5 @@ namespace Frontend
             UpdateInventory();
         }
 
-        public async void testIfGood(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

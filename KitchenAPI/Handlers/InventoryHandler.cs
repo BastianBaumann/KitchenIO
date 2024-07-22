@@ -36,6 +36,7 @@ namespace KitchenAPI.Handlers
                 cmd.Parameters.AddWithValue("Amount", newProduct.Amount);
                 cmd.Parameters.AddWithValue("Weight", newProduct.Weight);
                 cmd.Parameters.AddWithValue("EP", newProduct.EP);
+                cmd.Parameters.AddWithValue("Owner", newProduct.Owner);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();
@@ -85,6 +86,7 @@ namespace KitchenAPI.Handlers
                     newPr.Amount = rd.GetDouble(2);
                     newPr.Weight = rd.GetDouble(3);
                     newPr.EP = rd.GetDateTime(4);
+                    newPr.Owner = rd.GetGuid(5);
 
                     ProductList.Add(newPr);
                 }
@@ -128,6 +130,8 @@ namespace KitchenAPI.Handlers
                 cmd.Parameters.AddWithValue("Amount", newProduct.Amount);
                 cmd.Parameters.AddWithValue("Weight", newProduct.Weight);
                 cmd.Parameters.AddWithValue("EP", newProduct.EP);
+                cmd.Parameters.AddWithValue("Owner", newProduct.Owner);
+
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();
@@ -176,6 +180,63 @@ namespace KitchenAPI.Handlers
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return ex.ToString();
+            }
+        }
+
+        public async Task<List<Product>> GetByOwner(Guid Owner)
+        {
+            List<Product> products = new List<Product>();
+
+            //try creating the connection string, gives back empty list if fails
+            SqlConnection conn;
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return products;
+            }
+
+
+            //read all locations in database
+            try
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("GETAllByOwner_Inventory", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Owner", Owner);
+
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (await rd.ReadAsync())
+                {
+                    Product newPr = new Product();
+
+                    newPr.Id = rd.GetGuid(0);
+                    newPr.ProductId = rd.GetGuid(1);
+                    newPr.Amount = rd.GetDouble(2);
+                    newPr.Weight = rd.GetDouble(3);
+                    newPr.EP = rd.GetDateTime(4);
+                    newPr.Owner = rd.GetGuid(5);
+
+                    products.Add(newPr);
+
+                }
+
+                await conn.CloseAsync();
+
+                return products;
+            }
+            catch (Exception ex)
+            {
+                //give back list that we have so far in case of an error
+                Console.WriteLine(ex);
+                await conn.CloseAsync();
+                return products;
             }
         }
     }

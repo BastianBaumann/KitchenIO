@@ -37,5 +37,12 @@ namespace KitchenAPI.Controllers
             string answer = await InventoryHandler.Delete(Product);
             return Json(answer);
         }
+
+        [HttpGet("GetByOwnerInventory/{Owner}")]
+        public async Task<JsonResult> GetByOwnerInventory(Guid Owner)
+        {
+            List<Product> answer = await InventoryHandler.GetByOwner(Owner);
+            return Json(answer);
+        }
     }
 }

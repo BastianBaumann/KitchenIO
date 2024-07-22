@@ -13,5 +13,6 @@ namespace ClassLibrary.Objects
         public double Amount { get; set; }
         public double Weight { get; set; }
         public DateTime EP {  get; set; }
+        public Guid Owner {  get; set; }
     }
 }
