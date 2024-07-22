@@ -74,6 +74,11 @@
     <Build Include="InventorieScripts\UPDATE_Inventory.sql" />
     <Build Include="InventorieScripts\DELETE_Inventory.sql" />
     <Build Include="InventorieScripts\GETALLByOwner_Inventory.sql" />
+    <Build Include="Tables\KitchenTable.sql" />
+    <Build Include="Tables\Users.sql" />
+    <Build Include="Tables\KitchenBinding.sql" />
+    <Build Include="Tables\Salts.sql" />
+    <Build Include="Tables\HashKeys.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="KitchenDatabase.refactorlog" />
