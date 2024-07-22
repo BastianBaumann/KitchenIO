@@ -23,5 +23,19 @@ namespace KitchenAPI.Controllers
             string answer = await InventoryHandler.Create(newProduct);
             return Json(answer);
         }
+
+        [HttpPost("UpdateInventory")] //Create a location
+        public async Task<JsonResult> UpdateInventory([FromBody] Product Product)
+        {
+            string answer = await InventoryHandler.Update(Product);
+            return Json(answer);
+        }
+
+        [HttpPost("DeleteInventory")] //Create a location
+        public async Task<JsonResult> DeleteInventory([FromBody] Product Product)
+        {
+            string answer = await InventoryHandler.Delete(Product);
+            return Json(answer);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using KitchenAPI.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using KitchenIO.Objects;
+using ClassLibrary.Objects;
 
 namespace KitchenAPI.Controllers
 {
@@ -32,9 +33,16 @@ namespace KitchenAPI.Controllers
         }
 
         [HttpPost("UpdateProduct")] //Create a location
-        public async Task<JsonResult> UpdateProduct([FromBody] ProductRef newProduct)
+        public async Task<JsonResult> UpdateProduct([FromBody] ProductRef Product)
         {
-            string answer = await productHandler.Create(newProduct);
+            string answer = await productHandler.Update(Product);
+            return Json(answer);
+        }
+
+        [HttpPost("DeleteProduct")] //Create a location
+        public async Task<JsonResult> DeleteInventory([FromBody] ProductRef Product)
+        {
+            string answer = await productHandler.Delete(Product);
             return Json(answer);
         }
     }

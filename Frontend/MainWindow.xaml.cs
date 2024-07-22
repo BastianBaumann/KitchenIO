@@ -50,9 +50,9 @@ namespace Frontend
         public async void UpdateInventory()
         {
             InventoryList.Clear();
-            List<Product> PL = await InventoryerquestMaker.GetInventory();
+            List<Product> ProductL = await InventoryerquestMaker.GetInventory();
 
-            foreach(Product product in PL)
+            foreach(Product product in ProductL)
             {
                 InventoryList.Add(product);
             }
@@ -95,15 +95,18 @@ namespace Frontend
                 DateTime newDate = EpDate.SelectedDate.Value;
                 newProduct.EP = newDate;
 
-                InventoryerquestMaker.AddToInventorie(newProduct);
+                string result = await InventoryerquestMaker.AddToInventorie(newProduct);
 
                 newProductbarcode.Text = "";
                 newProductAmount.Text = "";
                 newProductWeight.Text = "";
-
-                UpdateInventory();
             }
             UpdateInventory();
+        }
+
+        public async void testIfGood(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

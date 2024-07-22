@@ -193,5 +193,42 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
+        public async Task<string> Delete(ProductRef newProduct)
+        {
+            //try creating the connection string, gives back error message as String if it fails
+            SqlConnection conn;
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return e.ToString();
+            }
+
+            //If connection string was created successfully, Insert the Location object into the database
+            try
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("DELETEE_Products", conn);
+
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Id", newProduct.Id);
+                int result = cmd.ExecuteNonQuery();
+
+                await conn.CloseAsync();
+
+                return "succuess";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                await conn.CloseAsync();
+                return ex.ToString();
+            }
+        }
     }
 }

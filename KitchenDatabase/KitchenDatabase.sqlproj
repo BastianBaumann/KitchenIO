@@ -71,6 +71,8 @@
     <Build Include="ProductScripts\DELETE_Product.sql" />
     <Build Include="ProductScripts\GETByBarcode_Products.sql" />
     <Build Include="InventorieScripts\GETALL_Inventory.sql" />
+    <Build Include="InventorieScripts\UPDATE_Inventory.sql" />
+    <Build Include="InventorieScripts\DELETE_Inventory.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="KitchenDatabase.refactorlog" />

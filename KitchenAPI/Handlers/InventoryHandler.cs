@@ -49,7 +49,6 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
-
         public async Task<List<Product>> GetAll()
         {
             List<Product> ProductList = new List<Product>();
@@ -100,6 +99,83 @@ namespace KitchenAPI.Handlers
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return ProductList;
+            }
+        }
+        public async Task<string> Update(Product newProduct)
+        {
+            //try creating the connection string, gives back error message as String if it fails
+            SqlConnection conn;
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return e.ToString();
+            }
+
+            //If connection string was created successfully, Insert the Location object into the database
+            try
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("UPDATE_Inventory", conn);
+
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Id", newProduct.Id);
+                cmd.Parameters.AddWithValue("Amount", newProduct.Amount);
+                cmd.Parameters.AddWithValue("Weight", newProduct.Weight);
+                cmd.Parameters.AddWithValue("EP", newProduct.EP);
+                int result = cmd.ExecuteNonQuery();
+
+                await conn.CloseAsync();
+
+                return "succuess";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                await conn.CloseAsync();
+                return ex.ToString();
+            }
+        }
+        public async Task<string> Delete(Product newProduct)
+        {
+            //try creating the connection string, gives back error message as String if it fails
+            SqlConnection conn;
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return e.ToString();
+            }
+
+            //If connection string was created successfully, Insert the Location object into the database
+            try
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("DELETEE_Inventory", conn);
+
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Id", newProduct.Id);
+                int result = cmd.ExecuteNonQuery();
+
+                await conn.CloseAsync();
+
+                return "succuess";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                await conn.CloseAsync();
+                return ex.ToString();
             }
         }
     }
