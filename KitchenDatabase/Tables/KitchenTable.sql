@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[KitchenTable]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [Name] VARCHAR(50) NOT NULL, 
+    [Description] VARCHAR(MAX) NOT NULL
+)

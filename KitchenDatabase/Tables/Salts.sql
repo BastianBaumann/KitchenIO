@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Salts]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [UerId] UNIQUEIDENTIFIER NOT NULL, 
+    [Salt] VARCHAR(50) NOT NULL
+)

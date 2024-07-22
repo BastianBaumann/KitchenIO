@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClassLibrary.Objects;
+using Frontend.RequestSenders;
 using KitchenIO.Objects;
 
 namespace Frontend
@@ -20,52 +22,90 @@ namespace Frontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        TestRequests RequestMaker = new TestRequests();
-        ObservableCollection<Product> ProductList = new ObservableCollection<Product>();
+        Guid ownerID = new Guid("A3149C8F-9F3D-44B7-94B9-30B01873101C");
+
+        ProductRequests ProductRequestMaker = new ProductRequests();
+        InventoryRequests InventoryerquestMaker = new InventoryRequests();
+
+        ObservableCollection<ProductRef> ProductList = new ObservableCollection<ProductRef>();
+        ObservableCollection<Product> InventoryList = new ObservableCollection<Product>();
 
         public MainWindow()
         {
             InitializeComponent();
             dataGrid.ItemsSource = ProductList;
-            getAllProducts();
+            ProductdataGrid.ItemsSource = InventoryList;
+            UpdateProductRefs();
+            UpdateInventory();
         }
 
-        /*
-        public async void testFunc(object sender, RoutedEventArgs e)
-        {
-
-            Product newProduct = await RequestMaker.sendGetRequest("https://localhost:7135/API/GetTest");
-            testLabel.Content = newProduct.Name.ToString();
-        }
-        */
-
-        public async void getAllProducts()
+        public async void UpdateProductRefs()
         {
             ProductList.Clear();
-            List<Product> PL = await RequestMaker.PullProducts();
-            foreach(Product product in PL)
+            List<ProductRef> PL = await ProductRequestMaker.PullProductRefs();
+            foreach(ProductRef product in PL)
             {
                 ProductList.Add(product);
             }
         }
 
-        public async void createProduct(object sender, RoutedEventArgs e)
+        public async void UpdateInventory()
         {
-            Product newProduct = new Product();
-            newProduct.Id = Guid.NewGuid();
-            newProduct.Name = testName.Text;
-            newProduct.Barcode = Convert.ToInt32(testbarcode.Text);
-            newProduct.Price = Convert.ToDouble(testPrice.Text);
-            newProduct.Type = Convert.ToInt32(testType.Text);
+            InventoryList.Clear();
+            List<Product> ProductL = await InventoryerquestMaker.GetInventoryByOwner(ownerID);
 
-            string result = await RequestMaker.PushProduct(newProduct);
+            foreach(Product product in ProductL)
+            {
+                InventoryList.Add(product);
+            }
+        }
+
+        public async void createProductRefButton(object sender, RoutedEventArgs e)
+        {
+            ProductRef newProductRef = new ProductRef();
+            newProductRef.Id = Guid.NewGuid();
+            newProductRef.Name = testName.Text;
+            newProductRef.Barcode = testbarcode.Text;
+            newProductRef.Price = Convert.ToDouble(testPrice.Text);
+            newProductRef.Type = Convert.ToInt32(testType.Text);
+
+            string result = await ProductRequestMaker.PushProductRef(newProductRef);
 
             testName.Text = "";
             testbarcode.Text = "";
             testPrice.Text = "";
             testType.Text = "";
 
-            getAllProducts();
+
+            UpdateProductRefs();
         }
+
+        public async void AddProductButton(object sender, RoutedEventArgs e)
+        {
+
+            Product newProduct = new Product();
+
+            //int Barcode = Convert.ToInt32(newProductbarcode.Text);
+            ProductRef foundProductRef = await ProductRequestMaker.GetProductRefByBarcode(newProductbarcode.Text);
+
+            if(foundProductRef.Id.ToString() != "")
+            {
+                newProduct.ProductId = foundProductRef.Id;
+                newProduct.Id = Guid.NewGuid();
+                newProduct.Amount = Convert.ToDouble(newProductAmount.Text);
+                newProduct.Weight = Convert.ToDouble(newProductWeight.Text);
+                DateTime newDate = EpDate.SelectedDate.Value;
+                newProduct.EP = newDate;
+                newProduct.Owner = ownerID;
+
+                string result = await InventoryerquestMaker.AddToInventorie(newProduct);
+
+                newProductbarcode.Text = "";
+                newProductAmount.Text = "";
+                newProductWeight.Text = "";
+            }
+            UpdateInventory();
+        }
+
     }
 }

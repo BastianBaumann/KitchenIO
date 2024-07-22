@@ -3,9 +3,10 @@
 	@ProductID uniqueidentifier,
 	@Amount float,
 	@Weight float,
-	@EP datetime
+	@EP datetime,
+	@Owner uniqueidentifier
 AS
 INSERT INTO InventorieTable
-(Id,ProductID,Amount,Weight,EP)
+(Id,ProductID,Amount,Weight,EP,Owner)
 values
-(@Id,@ProductID,@Amount,@Weight,@EP)
+(@Id,@ProductID,@Amount,@Weight,@EP,@Owner)

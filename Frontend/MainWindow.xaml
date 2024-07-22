@@ -7,12 +7,29 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="testName" HorizontalAlignment="Left" Margin="30,60,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="testbarcode" HorizontalAlignment="Left" Margin="30,90,0,0" TextWrapping="Wrap" Text="000000" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="testPrice" HorizontalAlignment="Left" Margin="30,120,0,0" TextWrapping="Wrap" Text="00.00" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="testType" HorizontalAlignment="Left" Margin="30,150,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="createButton" Content="test Creation" HorizontalAlignment="Left" Margin="30,180,0,0" VerticalAlignment="Top" Click="createProduct"/>
-        <DataGrid x:Name="dataGrid" Margin="200,60,30,69"/>
-
+        <TabControl>
+            
+            <TabItem Header="Add Product">
+                <Grid>
+                    <TextBox x:Name="testName" HorizontalAlignment="Left" Margin="30,60,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="testbarcode" HorizontalAlignment="Left" Margin="30,90,0,0" TextWrapping="Wrap" Text="000000" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="testPrice" HorizontalAlignment="Left" Margin="30,120,0,0" TextWrapping="Wrap" Text="00.00" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="testType" HorizontalAlignment="Left" Margin="30,150,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="createButton" Content="test Creation" HorizontalAlignment="Left" Margin="30,180,0,0" VerticalAlignment="Top" Click="createProductRefButton"/>
+                    <DataGrid x:Name="dataGrid" Margin="200,60,30,69"/>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Add to Inventory">
+                <Grid>
+                    <TextBox x:Name="newProductbarcode" HorizontalAlignment="Left" Margin="30,60,0,0" TextWrapping="Wrap" Text="000000" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="newProductWeight" HorizontalAlignment="Left" Margin="30,90,0,0" TextWrapping="Wrap" Text="00.00" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="newProductAmount" HorizontalAlignment="Left" Margin="30,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="newProductcreateButton" Content="Add" HorizontalAlignment="Left" Margin="30,200,0,0" VerticalAlignment="Top" Click="AddProductButton"/>
+                    <DataGrid x:Name="ProductdataGrid" Margin="200,60,30,69"/>
+                    <DatePicker x:Name="EpDate" Text="Experation Date" HorizontalAlignment="Left" Margin="30,150,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
