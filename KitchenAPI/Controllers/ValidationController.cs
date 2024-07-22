@@ -10,10 +10,10 @@ namespace KitchenAPI.Controllers
 
         ValidationHandler validationHandler = new ValidationHandler();
 
-        [HttpGet("ValidateFood")]
-        public async Task<JsonResult> ValidateFood(Guid owner)
+        [HttpGet("ValidateFoody/{Owner}")]
+        public async Task<JsonResult> ValidateFood(Guid Owner)
         {
-            List<Product> ProductList = await validationHandler.GetBadFood(owner);
+            List<Product> ProductList = await validationHandler.GetBadFood(Owner);
             return Json(ProductList);
         }
     }
