@@ -91,6 +91,9 @@
     <Build Include="UserScripts\UPDATE_Users.sql" />
     <Build Include="UserScripts\INSERT_Users.sql" />
     <Build Include="UserScripts\DELETE_User.sql" />
+    <Build Include="UserScripts\LOGIN_User.sql" />
+    <Build Include="KitchenBindingScripts\GETByKitchen_Binding.sql" />
+    <Build Include="KitchenBindingScripts\GETByUsers_Binding.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="KitchenDatabase.refactorlog" />

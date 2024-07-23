@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.Objects;
+using KitchenIO.Objects;
 using Microsoft.Data.SqlClient;
 
 namespace KitchenAPI.Handlers
@@ -116,6 +117,104 @@ namespace KitchenAPI.Handlers
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return ex.ToString();
+            }
+        }
+
+        public async Task<List<Kitchen>> GetByUser(Guid UserId)
+        {
+            List<Kitchen> kitchenList = new List<Kitchen>();
+            //try creating the connection string, gives back empty list if fails
+            SqlConnection conn;
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return kitchenList;
+            }
+
+
+            //read all locations in database
+            try
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("GETByUsers_Binding", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("UserId", UserId);
+
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (await rd.ReadAsync())
+                {
+                    Kitchen newKitchen = new Kitchen();
+                    newKitchen.Id = rd.GetGuid(0);
+                    newKitchen.Name = rd.GetString(1);
+                    newKitchen.Description = rd.GetString(2);
+                }
+
+                await conn.CloseAsync();
+
+                return kitchenList;
+            }
+            catch (Exception ex)
+            {
+                //give back list that we have so far in case of an error
+                Console.WriteLine(ex);
+                await conn.CloseAsync();
+                return kitchenList;
+            }
+        }
+
+        public async Task<List<User>> GetByKitchen(Guid KitchenId)
+        {
+            List<User> UserList = new List<User>();
+            //try creating the connection string, gives back empty list if fails
+            SqlConnection conn;
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return UserList;
+            }
+
+
+            //read all locations in database
+            try
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("GETByUsers_Binding", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("UserId", KitchenId);
+
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (await rd.ReadAsync())
+                {
+                    Kitchen newKitchen = new Kitchen();
+                    newKitchen.Id = rd.GetGuid(0);
+                    newKitchen.Name = rd.GetString(1);
+                    newKitchen.Description = rd.GetString(2);
+                }
+
+                await conn.CloseAsync();
+
+                return UserList;
+            }
+            catch (Exception ex)
+            {
+                //give back list that we have so far in case of an error
+                Console.WriteLine(ex);
+                await conn.CloseAsync();
+                return UserList;
             }
         }
     }

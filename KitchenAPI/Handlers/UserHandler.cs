@@ -1,5 +1,7 @@
 ﻿using ClassLibrary.Objects;
+using KitchenIO.Objects;
 using Microsoft.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace KitchenAPI.Handlers
 {
@@ -28,6 +30,7 @@ namespace KitchenAPI.Handlers
 
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
+                cmd.Parameters.AddWithValue("Id", newUser.Id);
                 cmd.Parameters.AddWithValue("Name", newUser.Name);
                 cmd.Parameters.AddWithValue("Password", newUser.Password);
                 cmd.Parameters.AddWithValue("Allergies", newUser.Allergies);
@@ -121,5 +124,56 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
+        public async Task<Guid> Login(User user)
+        {
+            User FoundUser = new User();
+            //try creating the connection string, gives back empty list if fails
+            SqlConnection conn;
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Guid.Empty;
+            }
+
+
+            //read all locations in database
+            try
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("LOGIN_User", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Name", user.Name);
+                cmd.Parameters.AddWithValue("Password", user.Password);
+
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (await rd.ReadAsync())
+                {
+
+                    FoundUser.Id = rd.GetGuid(0);
+                    FoundUser.Name = rd.GetString(1);
+                    FoundUser.Password = rd.GetString(2);
+
+                }
+
+                await conn.CloseAsync();
+
+                return FoundUser.Id;
+            }
+            catch (Exception ex)
+            {
+                //give back list that we have so far in case of an error
+                Console.WriteLine(ex);
+                await conn.CloseAsync();
+                return FoundUser.Id;
+            }
+        }
+
     }
 }

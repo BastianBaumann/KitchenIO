@@ -24,10 +24,17 @@ namespace KitchenAPI.Controllers
             return Json(answer);
         }
 
-        [HttpGet("Delete/{UserId}")]
+        [HttpGet("DeleteUser/{UserId}")]
         public async Task<JsonResult> Delete(Guid UserId)
         {
             string answer = await userHandler.Delete(UserId);
+            return Json(answer);
+        }
+
+        [HttpPost("LoginUser")]
+        public async Task<JsonResult> LoginUser(User newUser)
+        {
+            Guid answer = await userHandler.Login(newUser);
             return Json(answer);
         }
     }
