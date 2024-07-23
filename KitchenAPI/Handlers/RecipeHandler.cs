@@ -14,13 +14,14 @@ namespace KitchenAPI.Handlers
             string api_key = "GDhZ4/8euUTcTtCOKOjlKA==UkjauVzTI4jMJJ8H";
 
             List<Recipe> TotalList = new List<Recipe>();
+            List<Recipe> BannedList = new List<Recipe>();
 
 
             using (HttpClient client = new HttpClient())
             {
                 var offset = 0;
                 int totalList = 0;
-                int maxList = 100;
+                int maxList = 20;
 
 
                 client.DefaultRequestHeaders.Add("X-Api-Key", api_key);
@@ -40,13 +41,27 @@ namespace KitchenAPI.Handlers
 
                         List<Recipe> answer = JsonConvert.DeserializeObject<List<Recipe>>(responseBody);
 
+                        //current allergy test > will be replaced
+                        foreach(Recipe answerRecipe in answer)
+                        {
+                            if(answerRecipe.ingredients.Contains("vinegar"))
+                            {
+                                BannedList.Add(answerRecipe);
+                            }
+                        }
+
+                        foreach(Recipe recipe in BannedList)
+                        {
+                            answer.Remove(recipe);
+                        }
+
                         if (answer.Count > 0)
                         {
                             foreach (Recipe answerItem in answer)
                             {
                                 TotalList.Add(answerItem);
                             }
-                            offset = offset + 10;
+                            offset = offset + answer.Count();
                         }
                         else if (answer.Count == 0)
                         {
@@ -67,8 +82,8 @@ namespace KitchenAPI.Handlers
                         Console.WriteLine("Message :{0} ", e.Message);
                         return new List<Recipe>();
                     }
-
-                    if(offset == maxList)
+                    
+                    if(offset >= maxList)
                     {
                         break;
                     }
