@@ -61,6 +61,7 @@
     <Folder Include="ProductScripts" />
     <Folder Include="KitchenScripts" />
     <Folder Include="KitchenBindingScripts" />
+    <Folder Include="UserScripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\ProductTable.sql" />
@@ -87,6 +88,9 @@
     <Build Include="KitchenBindingScripts\BIND_Kitchen.sql" />
     <Build Include="KitchenBindingScripts\DELETEByUser_Bind.sql" />
     <Build Include="KitchenBindingScripts\DELETEByKitchen_Bind.sql" />
+    <Build Include="UserScripts\UPDATE_Users.sql" />
+    <Build Include="UserScripts\INSERT_Users.sql" />
+    <Build Include="UserScripts\DELETE_User.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="KitchenDatabase.refactorlog" />
