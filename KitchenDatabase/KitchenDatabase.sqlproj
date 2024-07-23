@@ -59,6 +59,8 @@
     <Folder Include="Tables" />
     <Folder Include="InventorieScripts" />
     <Folder Include="ProductScripts" />
+    <Folder Include="KitchenScripts" />
+    <Folder Include="KitchenBindingScripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\ProductTable.sql" />
@@ -79,6 +81,12 @@
     <Build Include="Tables\KitchenBinding.sql" />
     <Build Include="Tables\Salts.sql" />
     <Build Include="Tables\HashKeys.sql" />
+    <Build Include="KitchenScripts\INSERT_Kitchen.sql" />
+    <Build Include="KitchenScripts\UPDATE_Kitchen.sql" />
+    <Build Include="KitchenScripts\DELETE_Kitchen.sql" />
+    <Build Include="KitchenBindingScripts\BIND_Kitchen.sql" />
+    <Build Include="KitchenBindingScripts\DELETEByUser_Bind.sql" />
+    <Build Include="KitchenBindingScripts\DELETEByKitchen_Bind.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="KitchenDatabase.refactorlog" />
