@@ -9,10 +9,10 @@ namespace KitchenAPI.Controllers
     {
         RecipeHandler recipeHandler = new RecipeHandler();
 
-        [HttpGet("GetRecipes/{query}")]
-        public async Task<JsonResult> GetRecipes(string query)
+        [HttpGet("GetRecipes/{query}/{allergies}")]
+        public async Task<JsonResult> GetRecipes(string query,string allergies)
         {
-            List<Recipe> answer = await recipeHandler.GetAllRecipes(query);
+            List<Recipe> answer = await recipeHandler.GetAllRecipes(query, allergies);
             return Json(answer);
         }
     }
