@@ -1,7 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Net.Http.Headers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,30 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ClassLibrary.Objects;
-using Frontend.RequestSenders;
-using KitchenIO.Objects;
 
-
-
-namespace Frontend
+namespace Frontend.Windows
 {
     /// <summary>
-    /// Interaction logic for AccountScreen.xaml
+    /// Interaction logic for AddItemReference.xaml
     /// </summary>
-    public partial class AccountScreen : Window
+    public partial class AddItemReference : Window
     {
-        public event Action<Guid> GuidReturned;
-
-        UserRequests userRequests = new UserRequests();
-        public AccountScreen()
+        public AddItemReference()
         {
             InitializeComponent();
         }
 
-        private string CheckAllAllergies()
+        string CheckAllAllergies()
         {
             List<CheckBox> checkBoxes = new List<CheckBox>
             {
@@ -117,32 +109,6 @@ namespace Frontend
             return string.Join(",", allergies);
         }
 
-        public async void LoginUser(object sender, RoutedEventArgs e)
-        {
-            User userToLogin = new User();
-            userToLogin.Name = LoginName.Text;
-            userToLogin.Password = LoginPassword.Text;
-
-            Guid userGuid = await userRequests.Login(userToLogin.Name, userToLogin.Password);
-
-            if(userGuid != Guid.Empty)
-            {
-                Guid returnedGuid = userGuid;
-                GuidReturned?.Invoke(returnedGuid);
-                Close();
-            }
-        }
-
-        public async void RegisterUser(object sender, RoutedEventArgs e)
-        {
-            User RegisterUser = new User();
-
-            RegisterUser.Id = Guid.NewGuid();
-            RegisterUser.Name = RegisterName.Text;
-            RegisterUser.Password = RegisterPassword.Text;
-            RegisterUser.Allergies = CheckAllAllergies();
-
-            string test = await userRequests.PushUser(RegisterUser);
-        }
+        //string ProductType = CheckAllAllergies();
     }
 }
