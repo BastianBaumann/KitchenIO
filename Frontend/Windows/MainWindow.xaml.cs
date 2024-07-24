@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClassLibrary.Objects;
+using Frontend.Pages;
 using Frontend.RequestSenders;
+using Frontend.Windows;
 using KitchenIO.Objects;
 
 namespace Frontend
@@ -27,9 +29,12 @@ namespace Frontend
 
         ProductRequests ProductRequestMaker = new ProductRequests();
         InventoryRequests InventoryerquestMaker = new InventoryRequests();
+        KitchenRequests KitchenRequestMaker = new KitchenRequests();
 
         ObservableCollection<ProductRef> ProductList = new ObservableCollection<ProductRef>();
         ObservableCollection<Product> InventoryList = new ObservableCollection<Product>();
+
+        List<ClassLibrary.Objects.Binding> AllBindings = new List<ClassLibrary.Objects.Binding>();
 
         private void OpenLoginWindow()
         {
@@ -44,6 +49,7 @@ namespace Frontend
             LoggedInUserID = returnedGuid;
             UpdateProductRefs();
             UpdateInventory();
+            createKitchenTabs();
             MenuTabControl.Visibility = Visibility.Visible;
         }
 
@@ -54,7 +60,52 @@ namespace Frontend
             ProductdataGrid.ItemsSource = InventoryList;
             OpenLoginWindow();
         }
+        public async Task<int> getAllBindings()
+        {
+            AllBindings.Clear();
+            List<ClassLibrary.Objects.Binding> newBindList = await KitchenRequestMaker.getBindingsByUser(LoggedInUserID);
+            
+            foreach(ClassLibrary.Objects.Binding bind in newBindList)
+            {
+                AllBindings.Add(bind);
+            }
 
+            return AllBindings.Count();
+            
+        }
+
+        public async void createKitchenTabs()
+        {
+            int test = await getAllBindings();
+            KitchenTabControl.Items.Clear();
+
+            foreach (ClassLibrary.Objects.Binding bind in AllBindings)
+            {
+                Frame frame = new Frame();
+                KitchenPage kitchenPage = new KitchenPage(bind.KitchenId);
+                frame.Navigate(kitchenPage); // Navigieren zur Page
+
+                TabItem newKitchenTab = new TabItem
+                {
+                    Header = "Kitchen",
+                    Content = frame
+                };
+
+                // Hinzufügen des TabItems zum TabControl
+                KitchenTabControl.Items.Add(newKitchenTab);
+            }
+        }
+        public void CreateNewKitchen(object sender, RoutedEventArgs e)
+        {
+            AddNewKitchen AddItemDialog = new AddNewKitchen(LoggedInUserID);
+
+            bool? result = AddItemDialog.ShowDialog();
+
+            if (result == true)
+            {
+                createKitchenTabs();
+            }
+        }
         public async void UpdateProductRefs()
         {
             ProductList.Clear();

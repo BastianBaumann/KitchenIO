@@ -30,5 +30,19 @@ namespace KitchenAPI.Controllers
             string answer = await kitchenHandler.Delete(newKitchen);
             return Json(answer);
         }
+
+        [HttpGet("GetKitcheById/{KitchenId}")]
+        public async Task<JsonResult> GetKitcheById(Guid KitchenId)
+        {
+            Kitchen answer = await kitchenHandler.getKitchenById(KitchenId);
+            return Json(answer);
+        }
+        
+        [HttpGet("GetBindingsByUser/{UserId}")]
+        public async Task<JsonResult> GetBindingsByUser(Guid UserId)
+        {
+            List<Binding> answer = await kitchenHandler.getKitchenBindingByUser(UserId);
+            return Json(answer);
+        }
     }
 }

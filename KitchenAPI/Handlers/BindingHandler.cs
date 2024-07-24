@@ -29,8 +29,8 @@ namespace KitchenAPI.Handlers
 
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("Id", newBind.UserId);
-                cmd.Parameters.AddWithValue("Name", newBind.KitchenId);
+                cmd.Parameters.AddWithValue("UserId", newBind.UserId);
+                cmd.Parameters.AddWithValue("KitchenId", newBind.KitchenId);
 
                 int result = cmd.ExecuteNonQuery();
 
@@ -119,10 +119,9 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
-
-        public async Task<List<Kitchen>> GetByUser(Guid UserId)
+        public async Task<List<Binding>> GetByUser(Guid UserId)
         {
-            List<Kitchen> kitchenList = new List<Kitchen>();
+            List<Binding> bindingList = new List<Binding>();
             //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
@@ -132,7 +131,7 @@ namespace KitchenAPI.Handlers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return kitchenList;
+                return bindingList;
             }
 
 
@@ -150,28 +149,31 @@ namespace KitchenAPI.Handlers
 
                 while (await rd.ReadAsync())
                 {
-                    Kitchen newKitchen = new Kitchen();
-                    newKitchen.Id = rd.GetGuid(0);
-                    newKitchen.Name = rd.GetString(1);
-                    newKitchen.Description = rd.GetString(2);
+                    Binding newBinding = new Binding();
+                    newBinding.Id = rd.GetGuid(0);
+                    newBinding.UserId = rd.GetGuid(1);
+                    newBinding.KitchenId = rd.GetGuid(2);
+
+                    bindingList.Add(newBinding);
                 }
+                    await conn.CloseAsync();
 
-                await conn.CloseAsync();
-
-                return kitchenList;
+                    return bindingList;
+                
             }
             catch (Exception ex)
             {
                 //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
-                return kitchenList;
+                return bindingList;
             }
         }
-
         public async Task<List<User>> GetByKitchen(Guid KitchenId)
         {
-            List<User> UserList = new List<User>();
+            List<Binding> bindList = new List<Binding>();
+            List<User> userList = new List<User>();
+
             //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
@@ -181,7 +183,7 @@ namespace KitchenAPI.Handlers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return UserList;
+                return userList;
             }
 
 
@@ -190,32 +192,56 @@ namespace KitchenAPI.Handlers
             {
                 await conn.OpenAsync();
 
-                SqlCommand cmd = new SqlCommand("GETByUsers_Binding", conn);
+                SqlCommand cmd = new SqlCommand("GETByKitchen_Binding", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("UserId", KitchenId);
+                cmd.Parameters.AddWithValue("KitchenId", KitchenId);
 
                 SqlDataReader rd = cmd.ExecuteReader();
 
                 while (await rd.ReadAsync())
                 {
-                    Kitchen newKitchen = new Kitchen();
-                    newKitchen.Id = rd.GetGuid(0);
-                    newKitchen.Name = rd.GetString(1);
-                    newKitchen.Description = rd.GetString(2);
-                }
+                    Binding newBind = new Binding();
+                    newBind.Id = rd.GetGuid(0);
+                    newBind.UserId = rd.GetGuid(1);
+                    newBind.KitchenId = rd.GetGuid(2);
 
+                    bindList.Add(newBind);
+                }
                 await conn.CloseAsync();
 
-                return UserList;
             }
             catch (Exception ex)
             {
                 //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
-                return UserList;
+                return userList;
             }
+
+            foreach(Binding bind in bindList)
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("GETById_Users", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("UserId", bind.UserId);
+
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (await rd.ReadAsync())
+                {
+                    User newUser = new User();
+                    newUser.Id = rd.GetGuid(0);
+                    newUser.Name = rd.GetString(1);
+                    newUser.Allergies = rd.GetString(3);
+
+                    userList.Add(newUser);
+                }
+                await conn.CloseAsync();
+            }
+            return userList;
         }
     }
 }

@@ -32,6 +32,7 @@ namespace Frontend.Pages
         Guid KitchenId;
 
         InventoryRequests InventoryerquestMaker = new InventoryRequests();
+        KitchenRequests KitchenRequestMaker = new KitchenRequests();
 
         public KitchenPage(Guid KId)
         {
@@ -43,12 +44,21 @@ namespace Frontend.Pages
 
             InventoryGrid.ItemsSource= productList;
             UpdateInventory();
-
-            userListLabel.Content = userList;
-
-
+            setUserString();
         }
 
+        public async void setUserString()
+        {
+            List<User> userList = await KitchenRequestMaker.GetUserByKitchen(KitchenId);
+            List<string> nameList = new List<string>();
+
+            foreach (User user in userList)
+            {
+                nameList.Add(user.Name);
+            }
+
+            UserListLabel.Content = string.Join(",", nameList);
+        }
         public async void UpdateInventory()
         {
             productList.Clear();
@@ -60,7 +70,7 @@ namespace Frontend.Pages
             }
         }
 
-        public async void AddNewItem()
+        public void AddNewItem(object sender, RoutedEventArgs e)
         {
             AddItemScreen AddItemDialog = new AddItemScreen(KitchenId);
 

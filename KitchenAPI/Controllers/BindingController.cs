@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KitchenAPI.Controllers
 {
-    [Route("API/")]
+    [Route("Bindings/")]
     public class BindingController : Controller
     {
         
@@ -31,15 +31,15 @@ namespace KitchenAPI.Controllers
             return Json(answer);
         }
 
-        [HttpGet("GetBoundKitchen/{UserId}")]
-        public async Task<JsonResult> GetBoundKitchen(Guid UserId)
+        [HttpGet("GetBindingsByUser/{BindingUserId}")]
+        public async Task<JsonResult> GetBindingsByUser(Guid BindingUserId)
         {
-            List<Kitchen> answer = await bindingHandler.GetByUser(UserId);
+            List<Binding> answer = await bindingHandler.GetByUser(BindingUserId);
             return Json(answer);
         }
 
-        [HttpGet("GetBoundUser/{KitchenId}")]
-        public async Task<JsonResult> GetBoundUser(Guid KitchenId)
+        [HttpGet("GetUsersByKitchen/{KitchenId}")]
+        public async Task<JsonResult> GetUsersByKitchen(Guid KitchenId)
         {
             List<User> answer = await bindingHandler.GetByKitchen(KitchenId);
             return Json(answer);
