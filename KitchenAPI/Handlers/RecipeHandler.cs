@@ -29,7 +29,7 @@ namespace KitchenAPI.Handlers
             List<string> AdditivesAllergents = new List<string> {"Monosodium glutamate","MSG", "Sulfites", "Color","flavor", "additives" };
             List<string> FermentedAllergents = new List<string> { "Sauerkraut", "Kimchi", "Kombucha", "Miso" };
 
-            char delimiters = '|';
+            char delimiters = ',';
             string[] AllergyList = allergies.Split(delimiters);
 
 

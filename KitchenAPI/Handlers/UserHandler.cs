@@ -124,55 +124,48 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
-        public async Task<Guid> Login(User user)
+        public async Task<Guid> Login(string Name, string Password)
         {
-            User FoundUser = new User();
-            //try creating the connection string, gives back empty list if fails
-            SqlConnection conn;
-            try
+            Guid FoundGuid = Guid.Empty; // Standardwert für eine nicht gefundene GUID
+
+            // Erstelle die Verbindung
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn = new SqlConnection(connectionString);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return Guid.Empty;
-            }
-
-
-            //read all locations in database
-            try
-            {
-                await conn.OpenAsync();
-
-                SqlCommand cmd = new SqlCommand("LOGIN_User", conn);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("Name", user.Name);
-                cmd.Parameters.AddWithValue("Password", user.Password);
-
-                SqlDataReader rd = cmd.ExecuteReader();
-
-                while (await rd.ReadAsync())
+                try
                 {
+                    await conn.OpenAsync();
 
-                    FoundUser.Id = rd.GetGuid(0);
-                    FoundUser.Name = rd.GetString(1);
-                    FoundUser.Password = rd.GetString(2);
+                    // Erstelle den SQL-Befehl und weise die Stored Procedure zu
+                    using (SqlCommand cmd = new SqlCommand("LOGIN_User", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
+                        // Füge Parameter hinzu
+                        cmd.Parameters.AddWithValue("@Name", Name);
+                        cmd.Parameters.AddWithValue("@Password", Password);
+
+                        // Führe den Befehl aus
+                        using (SqlDataReader rd = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await rd.ReadAsync()) // Überprüfen, ob es eine Zeile gibt
+                            {
+                                // Lese die GUID, wenn sie vorhanden ist
+                                if (!rd.IsDBNull(0))
+                                {
+                                    FoundGuid = rd.GetGuid(0);
+                                }
+                            }
+                        }
+                    }
                 }
-
-                await conn.CloseAsync();
-
-                return FoundUser.Id;
+                catch (Exception ex)
+                {
+                    // Fehlerprotokollierung
+                    Console.WriteLine(ex);
+                }
             }
-            catch (Exception ex)
-            {
-                //give back list that we have so far in case of an error
-                Console.WriteLine(ex);
-                await conn.CloseAsync();
-                return FoundUser.Id;
-            }
+
+            return FoundGuid;
         }
 
     }

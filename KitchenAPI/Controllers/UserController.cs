@@ -11,30 +11,30 @@ namespace KitchenAPI.Controllers
         UserHandler userHandler = new UserHandler();
 
         [HttpPost("CreateUser")]
-        public async Task<JsonResult> Create(User newUser)
+        public async Task<JsonResult> CreateUser([FromBody] User newUser)
         {
             string answer = await userHandler.Create(newUser);
             return Json(answer);
         }
 
         [HttpPost("UpdateUser")]
-        public async Task<JsonResult> Update(User newUser)
+        public async Task<JsonResult> UpdateUser([FromBody] User newUser)
         {
             string answer = await userHandler.Update(newUser);
             return Json(answer);
         }
 
         [HttpGet("DeleteUser/{UserId}")]
-        public async Task<JsonResult> Delete(Guid UserId)
+        public async Task<JsonResult> DeleteUser(Guid UserId)
         {
             string answer = await userHandler.Delete(UserId);
             return Json(answer);
         }
 
-        [HttpPost("LoginUser")]
-        public async Task<JsonResult> LoginUser(User newUser)
+        [HttpGet("LoginUser{Username}/{Userpassword}")]
+        public async Task<JsonResult> LoginUser(string Username, string Userpassword)
         {
-            Guid answer = await userHandler.Login(newUser);
+            Guid answer = await userHandler.Login(Username, Userpassword);
             return Json(answer);
         }
     }

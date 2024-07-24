@@ -8,22 +8,23 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Frontend.RequestSenders
 {
     class UserRequests
     {
-        public async Task<string> CreateUser(User newUser)
+        public async Task<string> PushUser(User newUser)
         {
             using (HttpClient client = new HttpClient())
             {
-                string url = "https://localhost:7135/API/CreateProduct";
+                string url = "https://localhost:7135/API/CreateUser";
                 try
                 {
-                    // Serialisiere das Produktobjekt in einen JSON-String
-                    string jsonProduct = JsonConvert.SerializeObject(newUser);
+                    // Serialisiere das User-Objekt in einen JSON-String
+                    string jsonUser = JsonConvert.SerializeObject(newUser);
 
                     // Erstelle den HttpContent mit dem JSON-String
-                    StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
+                    StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
 
                     // Sende die POST-Anfrage
                     HttpResponseMessage response = await client.PostAsync(url, content);
@@ -32,31 +33,31 @@ namespace Frontend.RequestSenders
                     // Lese die Antwort als String
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Deserialisiere die Antwort in ein Product-Objekt
-                    string answer = JsonConvert.DeserializeObject<string>(responseBody);
+                    // Optional: Überprüfen Sie die Antwort auf mögliche Fehler
+                    Console.WriteLine("Response: " + responseBody);
 
-                    return answer;
+                    return responseBody; // Direkt den Antwort-String zurückgeben, wenn kein weiteres Parsing notwendig ist
                 }
                 catch (HttpRequestException e)
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return "Error"; // Oder eine andere geeignete Rückgabewert, falls erforderlich
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return "Error"; // Oder eine andere geeignete Rückgabewert, falls erforderlich
                 }
             }
         }
-        public async Task<User> Login(User user)
+        public async Task<Guid> Login(string username, string password)
         {
             using (HttpClient client = new HttpClient())
             {
                 // URL mit Barcode als Query-Parameter
-                string url = $"https://localhost:7135/API/LoginUser";
+                string url = $"https://localhost:7135/API/LoginUser{username}/{password}";
 
                 try
                 {
@@ -70,7 +71,7 @@ namespace Frontend.RequestSenders
                     string responseBody = await response.Content.ReadAsStringAsync();
 
                     // Deserialisieren der JSON-Antwort in ein ProductRef-Objekt
-                    User answer = JsonConvert.DeserializeObject<User>(responseBody);
+                    Guid answer = JsonConvert.DeserializeObject<Guid>(responseBody);
 
                     return answer;
                 }
@@ -79,14 +80,14 @@ namespace Frontend.RequestSenders
                     // Fehlerbehandlung bei HTTP-Anfragen
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // Rückgabe von null statt einer leeren Instanz, um anzuzeigen, dass ein Fehler aufgetreten ist
+                    return Guid.Empty; // Rückgabe von null statt einer leeren Instanz, um anzuzeigen, dass ein Fehler aufgetreten ist
                 }
                 catch (JsonException e)
                 {
                     // Fehlerbehandlung bei JSON-Verarbeitung
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // Rückgabe von null statt einer leeren Instanz
+                    return Guid.Empty; // Rückgabe von null statt einer leeren Instanz
                 }
             }
         }

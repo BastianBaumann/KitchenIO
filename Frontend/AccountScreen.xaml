@@ -7,42 +7,30 @@
         mc:Ignorable="d"
         Title="AccountScreen" Height="450" Width="800">
     <Grid>
-        <TabControl>
-
-            <TabItem Header="Register">
-                <Grid>
-                    <Rectangle HorizontalAlignment="Left" Height="400" Stroke="Black" VerticalAlignment="Center" Width="400"/>
-                    <Rectangle HorizontalAlignment="Left" Height="400" Stroke="Black" VerticalAlignment="Center" Width="394" Margin="400,0,0,0"/>
-                    <TextBox x:Name="RegisterName" HorizontalAlignment="Left" Margin="35,40,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
-                    <TextBox Name="RegisterPassword" HorizontalAlignment="Left" Margin="35,70,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
-                    <CheckBox x:Name="GrainsCheck" Content="Grains" ToolTip="Wheat, Rye, Barley, Oats, Corn, Rice, Millet, Quinoa, Amaranth" HorizontalAlignment="Left" Margin="35,110,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="DairyChecl" Content="Dairy Products" ToolTip="Cow's milk, Goat's milk, Sheep's milk, Cheese, Yogurt, Butter, Cream" HorizontalAlignment="Left" Margin="35,125,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="EggCheck" Content="Eggs" ToolTip="Chicken eggs, Quail eggs, Duck eggs" HorizontalAlignment="Left" Margin="35,140,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="NutsCheck" Content="Nuts" ToolTip="Peanuts, Almonds, Walnuts, Hazelnuts, Cashews, Pistachios, Macadamia nuts, Pecans" HorizontalAlignment="Left" Margin="35,155,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="SeedCheck" Content="Seeds" ToolTip="Sunflower seeds, Pumpkin seeds, Sesame seeds, Flaxseeds, Chia seeds" HorizontalAlignment="Left" Margin="35,170,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="FishCheck" Content="Fish" ToolTip="Salmon, Tuna, Cod, Mackerel, Herring, Sardines" HorizontalAlignment="Left" Margin="35,185,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="ShellfishCheck" Content="Shellfish" ToolTip="Shrimp, Crab, Lobster, Mussels, Oysters" HorizontalAlignment="Left" Margin="35,200,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="SoyCheck" Content="Soy" ToolTip="Tofu, Tempeh, Soy milk, Edamame, Soy sauce" HorizontalAlignment="Left" Margin="35,215,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="FruitCheck" Content="Fruits" ToolTip="Apples, Bananas, Berries (strawberries, raspberries, blueberries), Citrus fruits (oranges, lemons, grapefruits), Melons (watermelons, cantaloupes)" HorizontalAlignment="Left" Margin="35,230,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="VegetablesCheck" Content="Vegetables" ToolTip="Leafy greens (spinach, kale), Cruciferous vegetables (broccoli, cauliflower, Brussels sprouts), Nightshades (tomatoes, peppers, eggplants), Root vegetables (carrots, potatoes, beets)" HorizontalAlignment="Left" Margin="35,245,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="LegumesCheck" Content="Legumes" ToolTip="Lentils, Chickpeas, Black beans, Kidney beans, Peas" HorizontalAlignment="Left" Margin="35,260,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="SweetenersCheck" Content="Sweeteners" ToolTip="Sugar, Honey, Maple syrup, Agave syrup, Stevia" HorizontalAlignment="Left" Margin="35,275,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="FatsOilsCheck" Content="Fats and Oils" ToolTip="Olive oil, Coconut oil, Canola oil, Butter, Margarine" HorizontalAlignment="Left" Margin="35,290,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="SpicesHerbsCheck" Content="Herbs and Spices" ToolTip="Pepper, Salt, Cumin, Turmeric, Paprika, Basil, Oregano" HorizontalAlignment="Left" Margin="35,305,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="AddativesCheck" Content="Additives and Preservatives" ToolTip="Monosodium glutamate (MSG), Sulfites, Color and flavor additives" HorizontalAlignment="Left" Margin="35,320,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="FermentedCheck" Content="Fermented Products" ToolTip="Sauerkraut, Kimchi, Kombucha, Miso" HorizontalAlignment="Left" Margin="35,335,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="LoginPassword" HorizontalAlignment="Left" Margin="432,70,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="LoginName" HorizontalAlignment="Left" Margin="432,40,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Left" Margin="38,355,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="445,355,0,0" VerticalAlignment="Top"/>
-                </Grid>
-            </TabItem>
-
-            <TabItem Header="Login">
-                <Grid>
-
-                </Grid>
-            </TabItem>
-        </TabControl>
+        <Rectangle HorizontalAlignment="Left" Height="400" Stroke="Black" VerticalAlignment="Center" Width="400"/>
+        <Rectangle HorizontalAlignment="Left" Height="400" Stroke="Black" VerticalAlignment="Center" Width="394" Margin="400,0,0,0"/>
+        <TextBox x:Name="RegisterName" HorizontalAlignment="Left" Margin="35,40,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="RegisterPassword" HorizontalAlignment="Left" Margin="35,70,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
+        <CheckBox x:Name="GrainsCheck" Content="Grains" ToolTip="Wheat, Rye, Barley, Oats, Corn, Rice, Millet, Quinoa, Amaranth" HorizontalAlignment="Left" Margin="35,110,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="DairyChecl" Content="Dairy Products" ToolTip="Cow's milk, Goat's milk, Sheep's milk, Cheese, Yogurt, Butter, Cream" HorizontalAlignment="Left" Margin="35,125,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="EggCheck" Content="Eggs" ToolTip="Chicken eggs, Quail eggs, Duck eggs" HorizontalAlignment="Left" Margin="35,140,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="NutsCheck" Content="Nuts" ToolTip="Peanuts, Almonds, Walnuts, Hazelnuts, Cashews, Pistachios, Macadamia nuts, Pecans" HorizontalAlignment="Left" Margin="35,155,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="SeedCheck" Content="Seeds" ToolTip="Sunflower seeds, Pumpkin seeds, Sesame seeds, Flaxseeds, Chia seeds" HorizontalAlignment="Left" Margin="35,170,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="FishCheck" Content="Fish" ToolTip="Salmon, Tuna, Cod, Mackerel, Herring, Sardines" HorizontalAlignment="Left" Margin="35,185,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ShellfishCheck" Content="Shellfish" ToolTip="Shrimp, Crab, Lobster, Mussels, Oysters" HorizontalAlignment="Left" Margin="35,200,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="SoyCheck" Content="Soy" ToolTip="Tofu, Tempeh, Soy milk, Edamame, Soy sauce" HorizontalAlignment="Left" Margin="35,215,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="FruitCheck" Content="Fruits" ToolTip="Apples, Bananas, Berries (strawberries, raspberries, blueberries), Citrus fruits (oranges, lemons, grapefruits), Melons (watermelons, cantaloupes)" HorizontalAlignment="Left" Margin="35,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="VegetablesCheck" Content="Vegetables" ToolTip="Leafy greens (spinach, kale), Cruciferous vegetables (broccoli, cauliflower, Brussels sprouts), Nightshades (tomatoes, peppers, eggplants), Root vegetables (carrots, potatoes, beets)" HorizontalAlignment="Left" Margin="35,245,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="LegumesCheck" Content="Legumes" ToolTip="Lentils, Chickpeas, Black beans, Kidney beans, Peas" HorizontalAlignment="Left" Margin="35,260,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="SweetenersCheck" Content="Sweeteners" ToolTip="Sugar, Honey, Maple syrup, Agave syrup, Stevia" HorizontalAlignment="Left" Margin="35,275,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="FatsOilsCheck" Content="Fats and Oils" ToolTip="Olive oil, Coconut oil, Canola oil, Butter, Margarine" HorizontalAlignment="Left" Margin="35,290,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="SpicesHerbsCheck" Content="Herbs and Spices" ToolTip="Pepper, Salt, Cumin, Turmeric, Paprika, Basil, Oregano" HorizontalAlignment="Left" Margin="35,305,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="AddativesCheck" Content="Additives and Preservatives" ToolTip="Monosodium glutamate (MSG), Sulfites, Color and flavor additives" HorizontalAlignment="Left" Margin="35,320,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="FermentedCheck" Content="Fermented Products" ToolTip="Sauerkraut, Kimchi, Kombucha, Miso" HorizontalAlignment="Left" Margin="35,335,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="LoginPassword" HorizontalAlignment="Left" Margin="432,70,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="LoginName" HorizontalAlignment="Left" Margin="432,40,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Left" Margin="38,355,0,0" VerticalAlignment="Top" Click="RegisterUser"/>
+        <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="445,355,0,0" VerticalAlignment="Top" Click="LoginUser"/>
+        <Label x:Name="IDLabel" Content="Label" HorizontalAlignment="Left" Margin="445,300,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
