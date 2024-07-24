@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,7 +23,7 @@ namespace Frontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        Guid ownerID = new Guid("A3149C8F-9F3D-44B7-94B9-30B01873101C");
+        Guid LoggedInUserID = Guid.NewGuid();
 
         ProductRequests ProductRequestMaker = new ProductRequests();
         InventoryRequests InventoryerquestMaker = new InventoryRequests();
@@ -30,13 +31,28 @@ namespace Frontend
         ObservableCollection<ProductRef> ProductList = new ObservableCollection<ProductRef>();
         ObservableCollection<Product> InventoryList = new ObservableCollection<Product>();
 
+        private void OpenLoginWindow()
+        {
+
+            AccountScreen loginWindow = new AccountScreen();
+            loginWindow.GuidReturned += OnGuidReturned;
+            loginWindow.Show();
+        }
+
+        private void OnGuidReturned(Guid returnedGuid)
+        {
+            LoggedInUserID = returnedGuid;
+            UpdateProductRefs();
+            UpdateInventory();
+            MenuTabControl.Visibility = Visibility.Visible;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             dataGrid.ItemsSource = ProductList;
             ProductdataGrid.ItemsSource = InventoryList;
-            UpdateProductRefs();
-            UpdateInventory();
+            OpenLoginWindow();
         }
 
         public async void UpdateProductRefs()
@@ -52,7 +68,7 @@ namespace Frontend
         public async void UpdateInventory()
         {
             InventoryList.Clear();
-            List<Product> ProductL = await InventoryerquestMaker.GetInventoryByOwner(ownerID);
+            List<Product> ProductL = await InventoryerquestMaker.GetInventoryByOwner(LoggedInUserID);
 
             foreach(Product product in ProductL)
             {
@@ -96,7 +112,7 @@ namespace Frontend
                 newProduct.Weight = Convert.ToDouble(newProductWeight.Text);
                 DateTime newDate = EpDate.SelectedDate.Value;
                 newProduct.EP = newDate;
-                newProduct.Owner = ownerID;
+                newProduct.Owner = LoggedInUserID;
 
                 string result = await InventoryerquestMaker.AddToInventorie(newProduct);
 

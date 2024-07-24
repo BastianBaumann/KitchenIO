@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl>
+        <TabControl x:Name="MenuTabControl" Visibility="Hidden">
             
             <TabItem Header="Add Product">
                 <Grid>

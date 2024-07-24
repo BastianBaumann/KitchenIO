@@ -24,6 +24,8 @@ namespace Frontend
     /// </summary>
     public partial class AccountScreen : Window
     {
+        public event Action<Guid> GuidReturned;
+
         UserRequests userRequests = new UserRequests();
         public AccountScreen()
         {
@@ -124,6 +126,13 @@ namespace Frontend
             Guid userGuid = await userRequests.Login(userToLogin.Name, userToLogin.Password);
 
             IDLabel.Content = userGuid.ToString();
+
+            if(userGuid != Guid.Empty)
+            {
+                Guid returnedGuid = userGuid;
+                GuidReturned?.Invoke(returnedGuid);
+                Close();
+            }
         }
 
         public async void RegisterUser(object sender, RoutedEventArgs e)
