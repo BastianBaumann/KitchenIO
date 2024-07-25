@@ -167,6 +167,56 @@ namespace KitchenAPI.Handlers
 
             return FoundGuid;
         }
+        public async Task<User> GetByName(string username)
+        {
+            User foundUser = new User();
 
+
+            //try creating the connection string, gives back empty list if fails
+            SqlConnection conn;
+            try
+            {
+                conn = new SqlConnection(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return foundUser;
+            }
+
+
+            //read all locations in database
+            try
+            {
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand("GETByName_Users", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Name", username);
+
+                SqlDataReader rd = cmd.ExecuteReader();
+
+                while (await rd.ReadAsync())
+                {
+
+                    foundUser.Id = rd.GetGuid(0);
+                    foundUser.Name = rd.GetString(1);
+                    foundUser.Allergies = rd.GetString(3);
+
+                }
+
+                await conn.CloseAsync();
+
+                return foundUser;
+            }
+            catch (Exception ex)
+            {
+                //give back list that we have so far in case of an error
+                Console.WriteLine(ex);
+                await conn.CloseAsync();
+                return foundUser;
+            }
+        }
     }
 }

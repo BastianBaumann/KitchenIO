@@ -28,7 +28,7 @@
             
         </TabControl>
         <Label x:Name="UserListLabel" Margin="420,170,0,0"/>
-        <Button x:Name="AddUserButon" Content="Add User" HorizontalAlignment="Left" Margin="420,125,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="AddUserButon" Content="Add User" HorizontalAlignment="Left" Margin="420,125,0,0" VerticalAlignment="Top" Click="AddUserB"/>
         <Button x:Name="DeleteUserButton" Content="Delete User" HorizontalAlignment="Left" Margin="420,150,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

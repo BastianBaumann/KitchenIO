@@ -31,10 +31,17 @@ namespace KitchenAPI.Controllers
             return Json(answer);
         }
 
-        [HttpGet("LoginUser{Username}/{Userpassword}")]
+        [HttpGet("LoginUser/{Username}/{Userpassword}")]
         public async Task<JsonResult> LoginUser(string Username, string Userpassword)
         {
             Guid answer = await userHandler.Login(Username, Userpassword);
+            return Json(answer);
+        }
+
+        [HttpGet("GetUserByName/{Username}")]
+        public async Task<JsonResult> GetUserByName(string Username)
+        {
+            User answer = await userHandler.GetByName(Username);
             return Json(answer);
         }
     }

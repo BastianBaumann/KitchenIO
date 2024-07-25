@@ -81,5 +81,20 @@ namespace Frontend.Pages
                 UpdateInventory();
             }
         }
+        public void GetRecipes(object sender, RoutedEventArgs e)
+        {
+
+        }
+        public void AddUserB(object sender, RoutedEventArgs e)
+        {
+            AddUserScreen AddUserDialog = new AddUserScreen(KitchenId);
+
+            bool? result = AddUserDialog.ShowDialog();
+
+            if (result == true)
+            {
+                setUserString();
+            }
+        }
     }
 }
