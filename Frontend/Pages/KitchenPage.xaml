@@ -1,0 +1,34 @@
+﻿<Page x:Class="Frontend.Pages.KitchenPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Frontend.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="250" d:DesignWidth="400"
+      Title="KitchenPage">
+
+    <Grid Margin="0,0,0,0">
+        <TabControl Margin="0,0,0,75">
+            <TabItem x:Name="KitchenInventoryTab" Header="Inventory">
+                <Grid>
+                    <DataGrid x:Name="InventoryGrid" Margin="0,0,150,0"/>
+                    <Button x:Name="AddItemmButton" Content="Add new Item" HorizontalAlignment="Left" Margin="420,5,0,0" VerticalAlignment="Top" Click="AddNewItem"/>
+                    <Button x:Name="ValidateFoodButton" Content="Check Items" HorizontalAlignment="Left" Margin="420,30,0,0" VerticalAlignment="Top"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="664,96,0,0" VerticalAlignment="Top" Width="120"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="RecipesTab" Header="Recipes">
+                <Grid>
+                    <DataGrid x:Name="RecipeGrid" Margin="0,0,150,0"/>
+                    <Button x:Name="GetRecipeButton" Content="Get Recipes" HorizontalAlignment="Left" Margin="680,20,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            
+        </TabControl>
+        <Label x:Name="UserListLabel" Margin="420,170,0,0"/>
+        <Button x:Name="AddUserButon" Content="Add User" HorizontalAlignment="Left" Margin="420,125,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="DeleteUserButton" Content="Delete User" HorizontalAlignment="Left" Margin="420,150,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Page>

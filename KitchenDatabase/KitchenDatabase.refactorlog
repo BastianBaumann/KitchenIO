@@ -7,4 +7,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Amount" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="95d742f0-a099-4b7d-b973-df093d583907" ChangeDateTime="07/23/2024 08:37:58">
+    <Property Name="ElementName" Value="[dbo].[KitchenBinding].[User]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[KitchenBinding]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="822cfb90-fcad-4bb8-9142-a555190dc575" ChangeDateTime="07/23/2024 08:38:00">
+    <Property Name="ElementName" Value="[dbo].[KitchenBinding].[Kitchen]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[KitchenBinding]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="KitchenID" />
+  </Operation>
 </Operations>

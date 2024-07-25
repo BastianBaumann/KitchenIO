@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl>
+        <TabControl x:Name="MenuTabControl" Visibility="Hidden" TabStripPlacement="Left">
             
             <TabItem Header="Add Product">
                 <Grid>
@@ -19,7 +19,7 @@
                     <DataGrid x:Name="dataGrid" Margin="200,60,30,69"/>
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="Add to Inventory">
                 <Grid>
                     <TextBox x:Name="newProductbarcode" HorizontalAlignment="Left" Margin="30,60,0,0" TextWrapping="Wrap" Text="000000" VerticalAlignment="Top" Width="120"/>
@@ -30,6 +30,16 @@
                     <DatePicker x:Name="EpDate" Text="Experation Date" HorizontalAlignment="Left" Margin="30,150,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
+            
+            <TabItem Header="Kitchen">
+                <Grid >
+                    <TabControl x:Name="KitchenTabControl" Margin="0,0,100,0">
+
+                    </TabControl>
+                    <Button Content="Add new Kitchen" Margin="0,20,5,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="CreateNewKitchen"/>
+                </Grid>
+            </TabItem>
+
         </TabControl>
     </Grid>
 </Window>

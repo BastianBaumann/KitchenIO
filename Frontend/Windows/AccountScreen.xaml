@@ -1,0 +1,116 @@
+﻿<Window x:Class="Frontend.AccountScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Frontend"
+        mc:Ignorable="d"
+        Title="AccountScreen" Height="198" Width="407">
+    <Grid>
+        <Rectangle HorizontalAlignment="Left" Height="203" Stroke="Black" VerticalAlignment="Center" Width="200"/>
+        <Rectangle HorizontalAlignment="Left" Height="203" Stroke="Black" VerticalAlignment="Center" Width="200" Margin="205,0,0,0"/>
+        <TextBox x:Name="RegisterName" HorizontalAlignment="Left" Margin="35,40,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="RegisterPassword" HorizontalAlignment="Left" Margin="35,70,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="TypeComboBox" Width="150" Height="20" Margin="35,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="GrainsCheck" Content="Grains" ToolTip="Wheat, Rye, Barley, Oats, Corn, Rice, Millet, Quinoa, Amaranth" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="DairyCheck" Content="Dairy Products" ToolTip="Cow's milk, Goat's milk, Sheep's milk, Cheese, Yogurt, Butter, Cream" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="EggCheck" Content="Eggs" ToolTip="Chicken eggs, Quail eggs, Duck eggs" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="NutsCheck" Content="Nuts" ToolTip="Peanuts, Almonds, Walnuts, Hazelnuts, Cashews, Pistachios, Macadamia nuts, Pecans" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="SeedCheck" Content="Seeds" ToolTip="Sunflower seeds, Pumpkin seeds, Sesame seeds, Flaxseeds, Chia seeds" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="FishCheck" Content="Fish" ToolTip="Salmon, Tuna, Cod, Mackerel, Herring, Sardines" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="ShellfishCheck" Content="Shellfish" ToolTip="Shrimp, Crab, Lobster, Mussels, Oysters" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="SoyCheck" Content="Soy" ToolTip="Tofu, Tempeh, Soy milk, Edamame, Soy sauce" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="FruitCheck" Content="Fruits" ToolTip="Apples, Bananas, Berries (strawberries, raspberries, blueberries), Citrus fruits (oranges, lemons, grapefruits), Melons (watermelons, cantaloupes)" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="VegetablesCheck" Content="Vegetables" ToolTip="Leafy greens (spinach, kale), Cruciferous vegetables (broccoli, cauliflower, Brussels sprouts), Nightshades (tomatoes, peppers, eggplants), Root vegetables (carrots, potatoes, beets)" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="LegumesCheck" Content="Legumes" ToolTip="Lentils, Chickpeas, Black beans, Kidney beans, Peas" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox  x:Name="SweetenersCheck" Content="Sweeteners" ToolTip="Sugar, Honey, Maple syrup, Agave syrup, Stevia" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="FatsOilsCheck" Content="Fats and Oils" ToolTip="Olive oil, Coconut oil, Canola oil, Butter, Margarine" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="SpicesHerbsCheck" Content="Herbs and Spices" ToolTip="Pepper, Salt, Cumin, Turmeric, Paprika, Basil, Oregano" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="AddativesCheck" Content="Additives and Preservatives" ToolTip="Monosodium glutamate (MSG), Sulfites, Color and flavor additives" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox  x:Name="FermentedCheck" Content="Fermented Products" ToolTip="Sauerkraut, Kimchi, Kombucha, Miso" HorizontalAlignment="Left" Margin="5"/>
+                </StackPanel>
+            </ComboBoxItem>
+        </ComboBox>
+        <TextBox x:Name="LoginPassword" HorizontalAlignment="Left" Margin="230,70,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="LoginName" HorizontalAlignment="Left" Margin="230,40,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Left" Margin="38,135,0,0" VerticalAlignment="Top" Click="RegisterUser"/>
+        <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="280,135,0,0" VerticalAlignment="Top" Click="LoginUser"/>
+    </Grid>
+</Window>

@@ -59,6 +59,9 @@
     <Folder Include="Tables" />
     <Folder Include="InventorieScripts" />
     <Folder Include="ProductScripts" />
+    <Folder Include="KitchenScripts" />
+    <Folder Include="KitchenBindingScripts" />
+    <Folder Include="UserScripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\ProductTable.sql" />
@@ -79,6 +82,21 @@
     <Build Include="Tables\KitchenBinding.sql" />
     <Build Include="Tables\Salts.sql" />
     <Build Include="Tables\HashKeys.sql" />
+    <Build Include="KitchenScripts\INSERT_Kitchen.sql" />
+    <Build Include="KitchenScripts\UPDATE_Kitchen.sql" />
+    <Build Include="KitchenScripts\DELETE_Kitchen.sql" />
+    <Build Include="KitchenBindingScripts\BIND_Kitchen.sql" />
+    <Build Include="KitchenBindingScripts\DELETEByUser_Bind.sql" />
+    <Build Include="KitchenBindingScripts\DELETEByKitchen_Bind.sql" />
+    <Build Include="UserScripts\UPDATE_Users.sql" />
+    <Build Include="UserScripts\INSERT_Users.sql" />
+    <Build Include="UserScripts\DELETE_User.sql" />
+    <Build Include="UserScripts\LOGIN_User.sql" />
+    <Build Include="KitchenBindingScripts\GETByKitchen_Binding.sql" />
+    <Build Include="KitchenBindingScripts\GETByUsers_Binding.sql" />
+    <Build Include="UserScripts\GETALL_Users.sql" />
+    <Build Include="KitchenScripts\GETById_Kitchen.sql" />
+    <Build Include="UserScripts\GETById_Users.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="KitchenDatabase.refactorlog" />
