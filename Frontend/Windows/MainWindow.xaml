@@ -8,8 +8,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl x:Name="MenuTabControl" Visibility="Hidden" TabStripPlacement="Left">
-            
-            <TabItem Header="Add Product">
+
+            <TabItem Header="Add Product" Visibility="Hidden">
                 <Grid>
                     <TextBox x:Name="testName" HorizontalAlignment="Left" Margin="30,60,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="testbarcode" HorizontalAlignment="Left" Margin="30,90,0,0" TextWrapping="Wrap" Text="000000" VerticalAlignment="Top" Width="120"/>
@@ -20,7 +20,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Add to Inventory">
+            <TabItem Header="Add to Inventory" Visibility="Hidden">
                 <Grid>
                     <TextBox x:Name="newProductbarcode" HorizontalAlignment="Left" Margin="30,60,0,0" TextWrapping="Wrap" Text="000000" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="newProductWeight" HorizontalAlignment="Left" Margin="30,90,0,0" TextWrapping="Wrap" Text="00.00" VerticalAlignment="Top" Width="120"/>

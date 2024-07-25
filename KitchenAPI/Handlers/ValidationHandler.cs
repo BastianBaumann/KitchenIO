@@ -45,9 +45,8 @@ namespace KitchenAPI.Handlers
                     newPr.Id = rd.GetGuid(0);
                     newPr.ProductId = rd.GetGuid(1);
                     newPr.Amount = rd.GetDouble(2);
-                    newPr.Weight = rd.GetDouble(3);
-                    newPr.EP = rd.GetDateTime(4);
-                    newPr.Owner = rd.GetGuid(5);
+                    newPr.EP = rd.GetDateTime(3);
+                    newPr.Owner = rd.GetGuid(4);
 
                     if(newPr.EP < DateTime.Today || newPr.EP == DateTime.Today)
                     {

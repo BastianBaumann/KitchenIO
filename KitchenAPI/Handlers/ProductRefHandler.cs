@@ -36,6 +36,7 @@ namespace KitchenAPI.Handlers
                 cmd.Parameters.AddWithValue("Barcode", newProduct.Barcode);
                 cmd.Parameters.AddWithValue("Price", newProduct.Price);
                 cmd.Parameters.AddWithValue("Type", newProduct.Type);
+                cmd.Parameters.AddWithValue("@meassurement", newProduct.meassurement);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();
@@ -84,7 +85,8 @@ namespace KitchenAPI.Handlers
                     newPr.Name = rd.GetString(1);
                     newPr.Barcode = rd.GetString(2);
                     newPr.Price = rd.GetDouble(3);
-                    newPr.Type = rd.GetInt32(4);
+                    newPr.Type = rd.GetString(4);
+                    newPr.meassurement = rd.GetString(5);
 
                     ProductList.Add(newPr);
                 }
@@ -136,8 +138,8 @@ namespace KitchenAPI.Handlers
                     newPr.Name = rd.GetString(1);
                     newPr.Barcode = rd.GetString(2);
                     newPr.Price = rd.GetDouble(3);
-                    newPr.Type = rd.GetInt32(4);
-
+                    newPr.Type = rd.GetString(4);
+                    newPr.meassurement = rd.GetString(5);
                 }
 
                 await conn.CloseAsync();
@@ -180,6 +182,7 @@ namespace KitchenAPI.Handlers
                 cmd.Parameters.AddWithValue("Barcode", newProduct.Barcode);
                 cmd.Parameters.AddWithValue("Price", newProduct.Price);
                 cmd.Parameters.AddWithValue("Type", newProduct.Type);
+                cmd.Parameters.AddWithValue("@meassurement", newProduct.meassurement);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();

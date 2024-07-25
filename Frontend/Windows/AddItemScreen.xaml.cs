@@ -39,46 +39,50 @@ namespace Frontend.Windows
         public double Weight { get; private set; }
         public DateTime ExDate { get; private set; }
 
-        
+        private async void sendItem(Guid newProdId)
+        {
+            Product newProduct = new Product();
+
+            newProduct.Id = Guid.NewGuid();
+            newProduct.ProductId = newProdId;
+            newProduct.Amount = Convert.ToDouble(AmountTextBox.Text);
+            DateTime newDate = EPDatePicker.SelectedDate.Value;
+            newProduct.EP = newDate;
+            newProduct.Owner = KitchenId;
+
+            string result = await InventoryerquestMaker.AddToInventorie(newProduct);
+
+            if (result == "succuess")
+            {
+                DialogResult = true; // Close the dialog with DialogResult set to true
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Error while adding new Product", "Alert", (MessageBoxButton)MessageBoxImage.Information);
+            }
+        }
         private async void OkButton_Click(object sender, RoutedEventArgs e)
         {
             Barcode = BarcodeTextBox.Text;
             ProductRef foundProductRef = await ProductRequestMaker.GetProductRefByBarcode(Barcode);
 
-            if(foundProductRef.Id != Guid.Empty)
+            if (foundProductRef.Id == Guid.Empty)
             {
-                Product newProduct = new Product();
+                AddItemReference AddRefDialog = new AddItemReference(Barcode);
 
-                newProduct.Id = Guid.NewGuid();
-                newProduct.ProductId = foundProductRef.Id;
-                newProduct.Amount = Convert.ToDouble(AmountTextBox.Text);
-                newProduct.Weight = Convert.ToDouble(WeightTextBox.Text);
-                DateTime newDate = EPDatePicker.SelectedDate.Value;
-                newProduct.EP = newDate;
-                newProduct.Owner = KitchenId;
+                bool? result = AddRefDialog.ShowDialog();
 
-                string result = await InventoryerquestMaker.AddToInventorie(newProduct);
-
-                if(result == "succuess")
+                if (result == true)
                 {
-                DialogResult = true; // Close the dialog with DialogResult set to true
-                Close();
+                    ProductRef newId = await ProductRequestMaker.GetProductRefByBarcode(Barcode);
+                    sendItem(newId.Id);
                 }
-                else
-                {
-                    MessageBox.Show("Error while adding new Product", "Alert", (MessageBoxButton)MessageBoxImage.Information);
-                }
-                
             }
             else
             {
-                BarcodeTextBox.Text = "";
-                AmountTextBox.Text = "";
-                WeightTextBox.Text = "";
-                MessageBox.Show("Please enter a Valid Barcode", "Alert", (MessageBoxButton)MessageBoxImage.Information);
-
+                sendItem(foundProductRef.Id);
             }
-
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

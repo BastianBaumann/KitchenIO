@@ -134,7 +134,7 @@ namespace Frontend
             newProductRef.Name = testName.Text;
             newProductRef.Barcode = testbarcode.Text;
             newProductRef.Price = Convert.ToDouble(testPrice.Text);
-            newProductRef.Type = Convert.ToInt32(testType.Text);
+            newProductRef.Type = testType.Text;
 
             string result = await ProductRequestMaker.PushProductRef(newProductRef);
 
@@ -160,7 +160,6 @@ namespace Frontend
                 newProduct.ProductId = foundProductRef.Id;
                 newProduct.Id = Guid.NewGuid();
                 newProduct.Amount = Convert.ToDouble(newProductAmount.Text);
-                newProduct.Weight = Convert.ToDouble(newProductWeight.Text);
                 DateTime newDate = EpDate.SelectedDate.Value;
                 newProduct.EP = newDate;
                 newProduct.Owner = LoggedInUserID;

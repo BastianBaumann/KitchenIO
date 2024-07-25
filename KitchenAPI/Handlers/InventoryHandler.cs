@@ -34,7 +34,6 @@ namespace KitchenAPI.Handlers
                 cmd.Parameters.AddWithValue("Id", newProduct.Id);
                 cmd.Parameters.AddWithValue("ProductId", newProduct.ProductId);
                 cmd.Parameters.AddWithValue("Amount", newProduct.Amount);
-                cmd.Parameters.AddWithValue("Weight", newProduct.Weight);
                 cmd.Parameters.AddWithValue("EP", newProduct.EP);
                 cmd.Parameters.AddWithValue("Owner", newProduct.Owner);
                 int result = cmd.ExecuteNonQuery();
@@ -84,9 +83,8 @@ namespace KitchenAPI.Handlers
                     newPr.Id = rd.GetGuid(0);
                     newPr.ProductId = rd.GetGuid(1);
                     newPr.Amount = rd.GetDouble(2);
-                    newPr.Weight = rd.GetDouble(3);
-                    newPr.EP = rd.GetDateTime(4);
-                    newPr.Owner = rd.GetGuid(5);
+                    newPr.EP = rd.GetDateTime(3);
+                    newPr.Owner = rd.GetGuid(4);
 
                     ProductList.Add(newPr);
                 }
@@ -128,7 +126,6 @@ namespace KitchenAPI.Handlers
 
                 cmd.Parameters.AddWithValue("Id", newProduct.Id);
                 cmd.Parameters.AddWithValue("Amount", newProduct.Amount);
-                cmd.Parameters.AddWithValue("Weight", newProduct.Weight);
                 cmd.Parameters.AddWithValue("EP", newProduct.EP);
                 cmd.Parameters.AddWithValue("Owner", newProduct.Owner);
 
@@ -219,9 +216,8 @@ namespace KitchenAPI.Handlers
                     newPr.Id = rd.GetGuid(0);
                     newPr.ProductId = rd.GetGuid(1);
                     newPr.Amount = rd.GetDouble(2);
-                    newPr.Weight = rd.GetDouble(3);
-                    newPr.EP = rd.GetDateTime(4);
-                    newPr.Owner = rd.GetGuid(5);
+                    newPr.EP = rd.GetDateTime(3);
+                    newPr.Owner = rd.GetGuid(4);
 
                     products.Add(newPr);
 

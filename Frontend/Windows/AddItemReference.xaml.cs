@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ClassLibrary.Objects;
+using KitchenIO.Objects;
+using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Frontend.Windows
 {
@@ -19,9 +23,17 @@ namespace Frontend.Windows
     /// </summary>
     public partial class AddItemReference : Window
     {
-        public AddItemReference()
+        ProductRequests ProductRequestMaker = new ProductRequests();
+        string sentBarcode;
+        bool continueL = true;
+        string result;
+
+        public AddItemReference(string Barcode)
         {
             InitializeComponent();
+            sentBarcode = Barcode;
+            BarcodeTextBox.Text = sentBarcode;
+            BarcodeTextBox.IsManipulationEnabled = false;
         }
 
         string CheckAllAllergies()
@@ -108,7 +120,48 @@ namespace Frontend.Windows
             }
             return string.Join(",", allergies);
         }
+        private async void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            ProductRef newProductRef = new ProductRef();
+            newProductRef.Id = Guid.NewGuid();
+            newProductRef.Name = NameTextBox.Text;
+            newProductRef.Barcode = sentBarcode;
+            newProductRef.Price = Convert.ToDouble(PriceTextBox.Text);
+            string Allergents = CheckAllAllergies();
+            newProductRef.Type = Allergents;
 
-        //string ProductType = CheckAllAllergies();
+            if (grammsCheck.IsChecked == true && piecesCheck.IsChecked == true)
+            {
+                grammsCheck.IsChecked = false;
+                piecesCheck.IsChecked = false;
+                continueL = false;
+            }
+            if (grammsCheck.IsChecked == true)
+            {
+                newProductRef.meassurement = "g";
+                continueL = true;
+            }
+            else if (piecesCheck.IsChecked == true)
+            {
+                newProductRef.meassurement = "pc's";
+                continueL = true;
+            }
+            
+            if(continueL)
+            {
+                result = await ProductRequestMaker.PushProductRef(newProductRef);
+            }
+            
+            if (result == "succuess")
+            {
+                DialogResult = true; // Close the dialog with DialogResult set to true
+                Close();
+            }
+        }
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false; // Close the dialog with DialogResult set to false
+            Close();
+        }
     }
 }
