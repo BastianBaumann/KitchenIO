@@ -22,7 +22,7 @@
             <TabItem x:Name="RecipesTab" Header="Recipes">
                 <Grid>
                     <DataGrid x:Name="RecipeGrid" Margin="0,0,150,0"/>
-                    <Button x:Name="GetRecipeButton" Content="Get Recipes" HorizontalAlignment="Left" Margin="680,20,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="GetRecipeButton" Content="Get Recipes" HorizontalAlignment="Left" Margin="420,20,0,0" VerticalAlignment="Top" Click="GetRecipes"/>
                 </Grid>
             </TabItem>
             

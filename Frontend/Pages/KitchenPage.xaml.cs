@@ -27,12 +27,15 @@ namespace Frontend.Pages
     {
         ObservableCollection<Recipe> recipeList = new ObservableCollection<Recipe>();
         ObservableCollection<Product> productList = new ObservableCollection<Product>();
+
+        List<string> allergieList = new List<string>();
         List<User> userList = new List<User>();
 
         Guid KitchenId;
 
         InventoryRequests InventoryerquestMaker = new InventoryRequests();
         KitchenRequests KitchenRequestMaker = new KitchenRequests();
+        RecipeRequests RecipeRequestMaker = new RecipeRequests();
 
         public KitchenPage(Guid KId)
         {
@@ -46,10 +49,10 @@ namespace Frontend.Pages
             UpdateInventory();
             setUserString();
         }
-
         public async void setUserString()
         {
-            List<User> userList = await KitchenRequestMaker.GetUserByKitchen(KitchenId);
+            userList.Clear();
+            userList = await KitchenRequestMaker.GetUserByKitchen(KitchenId);
             List<string> nameList = new List<string>();
 
             foreach (User user in userList)
@@ -69,7 +72,6 @@ namespace Frontend.Pages
                 productList.Add(product);
             }
         }
-
         public void AddNewItem(object sender, RoutedEventArgs e)
         {
             AddItemScreen AddItemDialog = new AddItemScreen(KitchenId);
@@ -81,9 +83,24 @@ namespace Frontend.Pages
                 UpdateInventory();
             }
         }
-        public void GetRecipes(object sender, RoutedEventArgs e)
+        public async void GetRecipes(object sender, RoutedEventArgs e)
         {
+            string food = "Chicken";
 
+            foreach (User user in userList)
+            {
+                allergieList.Add(user.Allergies);
+            }
+            string res = string.Join(",", allergieList);
+
+            recipeList.Clear();
+            List<Recipe> newRecipeList = new List<Recipe>();
+            newRecipeList = await RecipeRequestMaker.getRecipeWithAllergies(food, res);
+
+            foreach(Recipe rec in newRecipeList)
+            {
+                recipeList.Add(rec);
+            }
         }
         public void AddUserB(object sender, RoutedEventArgs e)
         {
