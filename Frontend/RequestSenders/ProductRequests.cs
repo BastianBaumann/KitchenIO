@@ -127,5 +127,39 @@ namespace Frontend
                 }
             }
         }
+        public async Task<List<Product>> validateKitchenFoods(Guid KitchenId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"https://localhost:7135/API/ValidateFoody/afc2d45a-7c70-4ceb-9368-d5dfa376722b";
+
+                try
+                {
+
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+
+                    List<Product> answer = JsonConvert.DeserializeObject<List<Product>>(responseBody);
+
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return new List<Product>();
+                }
+                catch (JsonException e)
+                {
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return new List<Product>();
+                }
+            }
+        }
     }
 }

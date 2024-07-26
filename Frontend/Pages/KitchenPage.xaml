@@ -14,7 +14,7 @@
                 <Grid>
                     <DataGrid x:Name="InventoryGrid" Margin="0,0,150,0"/>
                     <Button x:Name="AddItemmButton" Content="Add new Item" HorizontalAlignment="Left" Margin="420,5,0,0" VerticalAlignment="Top" Click="AddNewItem"/>
-                    <Button x:Name="ValidateFoodButton" Content="Check Items" HorizontalAlignment="Left" Margin="420,30,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="ValidateFoodButton" Content="Check Items" HorizontalAlignment="Left" Margin="420,30,0,0" VerticalAlignment="Top" Click="ValidateFoodItems"/>
                     <ComboBox HorizontalAlignment="Left" Margin="664,96,0,0" VerticalAlignment="Top" Width="120"/>
                 </Grid>
             </TabItem>

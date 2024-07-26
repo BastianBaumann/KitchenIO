@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -36,16 +37,17 @@ namespace Frontend.Pages
         InventoryRequests InventoryerquestMaker = new InventoryRequests();
         KitchenRequests KitchenRequestMaker = new KitchenRequests();
         RecipeRequests RecipeRequestMaker = new RecipeRequests();
+        ProductRequests ProductRequestMaker = new ProductRequests();
 
         public KitchenPage(Guid KId)
         {
             KitchenId = KId;
-            
+
             InitializeComponent();
 
             RecipeGrid.ItemsSource = recipeList;
 
-            InventoryGrid.ItemsSource= productList;
+            InventoryGrid.ItemsSource = productList;
             UpdateInventory();
             setUserString();
         }
@@ -97,7 +99,7 @@ namespace Frontend.Pages
             List<Recipe> newRecipeList = new List<Recipe>();
             newRecipeList = await RecipeRequestMaker.getRecipeWithAllergies(food, res);
 
-            foreach(Recipe rec in newRecipeList)
+            foreach (Recipe rec in newRecipeList)
             {
                 recipeList.Add(rec);
             }
@@ -111,6 +113,20 @@ namespace Frontend.Pages
             if (result == true)
             {
                 setUserString();
+            }
+        }
+        public async void ValidateFoodItems(object sender, RoutedEventArgs e)
+        {
+            List<Product> FoodsToCheck = new List<Product>();
+            FoodsToCheck = await ProductRequestMaker.validateKitchenFoods(KitchenId);
+
+            CheckItems AddItemDialog = new CheckItems(FoodsToCheck);
+
+            bool? result = AddItemDialog.ShowDialog();
+
+            if (result == true)
+            {
+                Console.WriteLine("product");
             }
         }
     }
