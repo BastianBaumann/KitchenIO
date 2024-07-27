@@ -45,7 +45,7 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
-        public async Task<string> DeleteBindingByUser(Guid UserID)
+        public async Task<string> DeleteBindingByUser(Guid UserID, Guid KitchenId)
         {
             //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
@@ -69,6 +69,7 @@ namespace KitchenAPI.Handlers
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("UserId", UserID);
+                cmd.Parameters.AddWithValue("KitchenId", KitchenId);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();

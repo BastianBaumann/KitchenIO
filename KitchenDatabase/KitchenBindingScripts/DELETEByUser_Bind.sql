@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[DELETEByUser_Bind]
-	@UserId uniqueidentifier
+	@UserId uniqueidentifier,
+	@KitchenId uniqueidentifier
 AS
 	DELETE FROM KitchenBinding
-	WHERE UserId = @UserId
+	WHERE UserId = @UserId AND KitchenId = @KitchenId

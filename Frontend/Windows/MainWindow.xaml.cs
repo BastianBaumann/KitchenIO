@@ -173,9 +173,16 @@ namespace Frontend
             }
             UpdateInventory();
         }
-        public async void takeProduct(object sender, RoutedEventArgs e)
+        public async void webcamtest(object sender, RoutedEventArgs e)
         {
+            BarcodeScannerWebcam AddItemDialog = new BarcodeScannerWebcam();
 
+            bool? result = AddItemDialog.ShowDialog();
+
+            if (result == true)
+            {
+                createKitchenTabs();
+            }
         }
     }
 }

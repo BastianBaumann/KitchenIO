@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.Objects;
+using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace Frontend.RequestSenders
                 }
             }
         }
-        public async Task<List<User>> GetUserByKitchen(Guid KitchenId)
+        public async Task<List<ClassLibrary.Objects.User>> GetUserByKitchen(Guid KitchenId)
         {
             // GetUsersByKitchen /{ KitchenId}
             using (HttpClient client = new HttpClient())
@@ -62,7 +63,7 @@ namespace Frontend.RequestSenders
                     string responseBody = await response.Content.ReadAsStringAsync();
 
 
-                    List<User> answer = JsonConvert.DeserializeObject<List<User>>(responseBody);
+                    List<ClassLibrary.Objects.User> answer = JsonConvert.DeserializeObject<List<ClassLibrary.Objects.User>>(responseBody);
 
                     return answer;
                 }
@@ -70,13 +71,13 @@ namespace Frontend.RequestSenders
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return new List<User>();
+                    return new List<ClassLibrary.Objects.User>();
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return new List<User>();
+                    return new List<ClassLibrary.Objects.User>();
                 }
             }
         }
@@ -189,6 +190,39 @@ namespace Frontend.RequestSenders
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
                     return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                }
+            }
+        }
+        public async Task<string> DeleteBind(Guid UserId, Guid KitchenId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"https://localhost:7135/Bindings/DeleteBindUsery/{UserId}/{KitchenId}";
+
+                try
+                {
+
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    string answer = JsonConvert.DeserializeObject<string>(responseBody);
+
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return e.Message;
+                }
+                catch (JsonException e)
+                {
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return e.Message;
                 }
             }
         }

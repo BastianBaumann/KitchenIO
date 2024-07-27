@@ -40,6 +40,12 @@
                 </Grid>
             </TabItem>
 
+            <TabItem Header="WebcamTest">
+                <Grid>
+                    <Button x:Name="testWebcam" Click="webcamtest"/>
+                </Grid>
+            </TabItem>
+            
         </TabControl>
     </Grid>
 </Window>

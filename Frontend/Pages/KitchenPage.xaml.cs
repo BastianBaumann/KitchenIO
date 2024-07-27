@@ -115,6 +115,17 @@ namespace Frontend.Pages
                 setUserString();
             }
         }
+        public void DeleteUser(object sender, RoutedEventArgs e)
+        {
+            DeleteUserScreen DelUserDialog = new DeleteUserScreen(KitchenId);
+
+            bool? result = DelUserDialog.ShowDialog();
+
+            if (result == true)
+            {
+                setUserString();
+            }
+        }
         public async void ValidateFoodItems(object sender, RoutedEventArgs e)
         {
             List<Product> FoodsToCheck = new List<Product>();
