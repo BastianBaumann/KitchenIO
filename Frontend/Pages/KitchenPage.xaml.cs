@@ -129,5 +129,24 @@ namespace Frontend.Pages
                 Console.WriteLine("product");
             }
         }
+
+        public async void TakeItem(object sender, RoutedEventArgs e)
+        {
+            if (InventoryGrid.SelectedItem != null)
+            {
+                Product ProductToTake = InventoryGrid.SelectedItem as Product;
+                Console.WriteLine(ProductToTake.Id);
+
+                TakeItemWindow TakeDialog = new TakeItemWindow(ProductToTake);
+
+                bool? result = TakeDialog.ShowDialog();
+
+                if (result == true)
+                {
+                    UpdateInventory();
+                }
+            }
+        }
     }
 }
+    

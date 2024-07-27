@@ -12,12 +12,12 @@ namespace Frontend
 {
     public class ProductRequests
     {
-        
+
         public async Task<List<ProductRef>> PullProductRefs()
         {
             using (HttpClient client = new HttpClient())
             {
-                string url = "https://localhost:7135/API/GetAllProducts"; 
+                string url = "https://localhost:7135/API/GetAllProducts";
 
                 try
                 {

@@ -142,7 +142,7 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
-        public async Task<string> Delete(Product newProduct)
+        public async Task<string> Delete(Guid newProduct)
         {
             //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
@@ -161,11 +161,11 @@ namespace KitchenAPI.Handlers
             {
                 await conn.OpenAsync();
 
-                SqlCommand cmd = new SqlCommand("DELETEE_Inventory", conn);
+                SqlCommand cmd = new SqlCommand("DELETE_Inventory", conn);
 
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("Id", newProduct.Id);
+                cmd.Parameters.AddWithValue("Id", newProduct);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -172,6 +173,9 @@ namespace Frontend
             }
             UpdateInventory();
         }
+        public async void takeProduct(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

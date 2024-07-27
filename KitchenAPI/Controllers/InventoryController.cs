@@ -31,10 +31,10 @@ namespace KitchenAPI.Controllers
             return Json(answer);
         }
 
-        [HttpPost("DeleteInventory")] //Create a location
-        public async Task<JsonResult> DeleteInventory([FromBody] Product Product)
+        [HttpGet("DeleteInventory/{ProductId}")] //Create a location
+        public async Task<JsonResult> DeleteInventory(Guid ProductId)
         {
-            string answer = await InventoryHandler.Delete(Product);
+            string answer = await InventoryHandler.Delete(ProductId);
             return Json(answer);
         }
 
