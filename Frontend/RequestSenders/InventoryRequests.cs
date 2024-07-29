@@ -19,20 +19,15 @@ namespace Frontend.RequestSenders
                 string url = "https://localhost:7135/API/AddProduct";
                 try
                 {
-                    // Serialisiere das Produktobjekt in einen JSON-String
                     string jsonProduct = JsonConvert.SerializeObject(product);
 
-                    // Erstelle den HttpContent mit dem JSON-String
                     StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
 
-                    // Sende die POST-Anfrage
                     HttpResponseMessage response = await client.PostAsync(url, content);
                     response.EnsureSuccessStatusCode();
 
-                    // Lese die Antwort als String
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Deserialisiere die Antwort in ein Product-Objekt
                     string answer = JsonConvert.DeserializeObject<string>(responseBody);
 
                     return answer;
@@ -41,13 +36,13 @@ namespace Frontend.RequestSenders
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null; 
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null;
                 }
             }
 
@@ -157,6 +152,73 @@ namespace Frontend.RequestSenders
                 }
             }
         }
+        public async Task<string> updateItem(Product productToUpdate)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = "https://localhost:7135/API/UpdateInventory";
+                try
+                {
+                    string jsonProduct = JsonConvert.SerializeObject(productToUpdate);
 
+                    StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(url, content);
+                    response.EnsureSuccessStatusCode();
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    string answer = JsonConvert.DeserializeObject<string>(responseBody);
+
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return null;
+                }
+                catch (JsonException e)
+                {
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return null;
+                }
+            }
+        }
+        public async Task<string> deleteItem(Guid productToDelete)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"https://localhost:7135/API/DeleteInventory/{productToDelete}";
+
+                try
+                {
+
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+
+                    string answer = JsonConvert.DeserializeObject<string> (responseBody);
+
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return e.Message;
+                }
+                catch (JsonException e)
+                {
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return e.Message;
+                }
+            }
+        }
     }
 }

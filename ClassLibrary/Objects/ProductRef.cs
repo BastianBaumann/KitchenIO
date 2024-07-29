@@ -13,6 +13,7 @@ namespace KitchenIO.Objects
         public string Name { get; set; }
         public string Barcode { get; set; }
         public double Price { get; set; }
-        public int Type { get; set; }
+        public string Type { get; set; }
+        public string meassurement {  get; set; }
     }
 }

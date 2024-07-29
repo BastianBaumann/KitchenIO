@@ -1,5 +1,4 @@
-﻿using ClassLibrary.Objects;
-using Frontend.RequestSenders;
+﻿using Frontend.RequestSenders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,39 +15,38 @@ using System.Windows.Shapes;
 
 namespace Frontend.Windows
 {
-    public partial class AddNewKitchen : Window
+    public partial class AddUserScreen : Window
     {
-        Guid UserId;
-
         KitchenRequests KitchenRequestMaker = new KitchenRequests();
-        public AddNewKitchen(Guid UserID)
+        UserRequests UserRequestMaker = new UserRequests();
+        
+
+        Guid KitchenId;
+
+        public AddUserScreen(Guid KId)
         {
-            UserId = UserID;
             InitializeComponent();
+            KitchenId = KId;
         }
 
         public async void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            Kitchen newKitchen = new Kitchen();
-
-            newKitchen.Id = Guid.NewGuid();
-            newKitchen.Name = NameTextBox.Text;
-            newKitchen.Description = DescriptionTextBox.Text;
-
             ClassLibrary.Objects.Binding newBind = new ClassLibrary.Objects.Binding();
 
             newBind.Id = Guid.NewGuid();
-            newBind.KitchenId = newKitchen.Id;
-            newBind.UserId = UserId;
+            newBind.KitchenId = KitchenId;
+            newBind.UserId = await UserRequestMaker.getUserIdByName(NameTextBox.Text);
 
-            string result = await KitchenRequestMaker.CreateKitchen(newKitchen);
-            string newResult = await KitchenRequestMaker.CreateBind(newBind);
-            DialogResult = true; 
-            Close();
+            if(newBind.UserId != Guid.Empty)
+            {
+                var res = await KitchenRequestMaker.CreateBind(newBind);
+                DialogResult = true; 
+                Close();
+            }
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false; 
+            DialogResult = false;
             Close();
         }
     }

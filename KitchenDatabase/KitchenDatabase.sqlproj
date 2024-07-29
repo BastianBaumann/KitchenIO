@@ -97,6 +97,7 @@
     <Build Include="UserScripts\GETALL_Users.sql" />
     <Build Include="KitchenScripts\GETById_Kitchen.sql" />
     <Build Include="UserScripts\GETById_Users.sql" />
+    <Build Include="UserScripts\GETByName_Users.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="KitchenDatabase.refactorlog" />

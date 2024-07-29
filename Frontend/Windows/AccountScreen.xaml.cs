@@ -60,11 +60,10 @@ namespace Frontend
             {
                 if (checkBox.IsChecked == true)
                 {
-                    // Add allergy code based on CheckBox name
                     switch (checkBox.Name)
                     {
                         case "GrainsCheck":
-                            allergies.Add("1"); // or appropriate value
+                            allergies.Add("1"); 
                             break;
                         case "DairyCheck":
                             allergies.Add("2");

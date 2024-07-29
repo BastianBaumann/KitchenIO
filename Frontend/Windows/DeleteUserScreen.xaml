@@ -1,17 +1,15 @@
-﻿<Window x:Class="Frontend.Windows.AddItemScreen"
+﻿<Window x:Class="Frontend.Windows.DeleteUserScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend.Windows"
         mc:Ignorable="d"
-        Title="AddItemScreen" Height="200" Width="250">
+        Title="DeleteUserScreen" Height="107" Width="236">
     <Grid>
         <StackPanel Margin="10">
-            <TextBox x:Name="BarcodeTextBox" Margin="0,10,0,10" Text="Enter Barcode.." Width="200"/>
-            <TextBox x:Name="AmountTextBox" Margin="0,0,0,10" Text="Enter Amount.." Width="200"/>
-            <DatePicker x:Name="EPDatePicker" Text="Experation Date" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top"/>
-                <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
+            <TextBox x:Name="NameTextBox" Margin="0,10,0,10" Text="EnterUsername.." Width="200"/>
+            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
                 <Button Content="Save" Click="OkButton_Click" Margin="5"/>
                 <Button Content="Cancel" Click="CancelButton_Click" Margin="5"/>
             </StackPanel>

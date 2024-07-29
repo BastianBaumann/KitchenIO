@@ -2,6 +2,6 @@
 	@Owner uniqueidentifier
 AS
 BEGIN
-SELECT Id,ProductID,Amount,Weight,EP,Owner FROM InventorieTable
+SELECT Id,ProductID,Amount,EP,Owner FROM InventorieTable
 WHERE Owner = @Owner
 END

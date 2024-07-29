@@ -9,7 +9,6 @@ namespace KitchenAPI.Handlers
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=KitchenDB;Integrated Security=True";
         public async Task<string> BindKitchen(Binding newBind)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -45,9 +44,8 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
-        public async Task<string> DeleteBindingByUser(Guid UserID)
+        public async Task<string> DeleteBindingByUser(Guid UserID, Guid KitchenId)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -59,7 +57,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -69,6 +66,7 @@ namespace KitchenAPI.Handlers
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("UserId", UserID);
+                cmd.Parameters.AddWithValue("KitchenId", KitchenId);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();
@@ -84,7 +82,6 @@ namespace KitchenAPI.Handlers
         }
         public async Task<string> DeleteBindingByKitchen(Guid KitchenID)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -96,7 +93,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -122,7 +118,6 @@ namespace KitchenAPI.Handlers
         public async Task<List<Binding>> GetByUser(Guid UserId)
         {
             List<Binding> bindingList = new List<Binding>();
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -135,7 +130,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -163,7 +157,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return bindingList;
@@ -174,7 +167,6 @@ namespace KitchenAPI.Handlers
             List<Binding> bindList = new List<Binding>();
             List<User> userList = new List<User>();
 
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -187,7 +179,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -213,7 +204,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return userList;

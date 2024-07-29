@@ -2,6 +2,6 @@
 	@Barcode varchar(50)
 AS
 BEGIN
-SELECT Id,Name,Barcode,Price,Type FROM ProductTable
+SELECT Id,Name,Barcode,Price,Type,meassurement FROM ProductTable
 WHERE Barcode = @Barcode
 END

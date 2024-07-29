@@ -10,7 +10,6 @@ namespace KitchenAPI.Handlers
 
         public async Task<string> Create(ProductRef newProduct)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -22,7 +21,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -36,6 +34,7 @@ namespace KitchenAPI.Handlers
                 cmd.Parameters.AddWithValue("Barcode", newProduct.Barcode);
                 cmd.Parameters.AddWithValue("Price", newProduct.Price);
                 cmd.Parameters.AddWithValue("Type", newProduct.Type);
+                cmd.Parameters.AddWithValue("@meassurement", newProduct.meassurement);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();
@@ -53,7 +52,6 @@ namespace KitchenAPI.Handlers
         {
             List<ProductRef> ProductList = new List<ProductRef>();
 
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -66,7 +64,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -84,7 +81,8 @@ namespace KitchenAPI.Handlers
                     newPr.Name = rd.GetString(1);
                     newPr.Barcode = rd.GetString(2);
                     newPr.Price = rd.GetDouble(3);
-                    newPr.Type = rd.GetInt32(4);
+                    newPr.Type = rd.GetString(4);
+                    newPr.meassurement = rd.GetString(5);
 
                     ProductList.Add(newPr);
                 }
@@ -95,7 +93,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return ProductList;
@@ -104,7 +101,6 @@ namespace KitchenAPI.Handlers
         public async Task<ProductRef> GetByBarcode(string barcode)
         {
             ProductRef newPr = new ProductRef();
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -117,7 +113,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -136,8 +131,8 @@ namespace KitchenAPI.Handlers
                     newPr.Name = rd.GetString(1);
                     newPr.Barcode = rd.GetString(2);
                     newPr.Price = rd.GetDouble(3);
-                    newPr.Type = rd.GetInt32(4);
-
+                    newPr.Type = rd.GetString(4);
+                    newPr.meassurement = rd.GetString(5);
                 }
 
                 await conn.CloseAsync();
@@ -146,7 +141,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return newPr;
@@ -154,7 +148,6 @@ namespace KitchenAPI.Handlers
         }
         public async Task<string> Update(ProductRef newProduct)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -166,7 +159,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -180,6 +172,7 @@ namespace KitchenAPI.Handlers
                 cmd.Parameters.AddWithValue("Barcode", newProduct.Barcode);
                 cmd.Parameters.AddWithValue("Price", newProduct.Price);
                 cmd.Parameters.AddWithValue("Type", newProduct.Type);
+                cmd.Parameters.AddWithValue("@meassurement", newProduct.meassurement);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();
@@ -195,7 +188,6 @@ namespace KitchenAPI.Handlers
         }
         public async Task<string> Delete(ProductRef newProduct)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -207,7 +199,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();

@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend.Windows"
         mc:Ignorable="d"
-        Title="AddItemReference" Height="450" Width="800">
+        Title="AddItemReference" Height="200" Width="250">
     <Grid>
-        <ComboBox x:Name="TypeComboBox" Width="200" Margin="0,10,0,10">
+        <TextBox x:Name="BarcodeTextBox" Text="Barcode" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,0,0" Width="120"/>
+        <TextBox x:Name="NameTextBox" Text="Name" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,35,0,0" Width="120"/>
+        <TextBox x:Name="PriceTextBox" Text="Price" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,65,0,0" Width="120"/>
+        <ComboBox    x:Name="TypeComboBox" Text="Type" Width="120" Margin="10,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="16">
             <ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox x:Name="GrainsCheck" Content="Grains" ToolTip="Wheat, Rye, Barley, Oats, Corn, Rice, Millet, Quinoa, Amaranth" Margin="5"/>
@@ -104,5 +107,11 @@
                 </StackPanel>
             </ComboBoxItem>
         </ComboBox>
+        <CheckBox x:Name="grammsCheck" Content="Gramm" Margin="10,110,0,0"/>
+        <CheckBox x:Name="piecesCheck" Content="Pieces" Margin="90,110,0,0"/>
+        <StackPanel Margin="10,135,10,10" Orientation="Horizontal" >
+            <Button Content="Save" Click="OkButton_Click" Margin="5"/>
+            <Button Content="Cancel" Click="CancelButton_Click" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>

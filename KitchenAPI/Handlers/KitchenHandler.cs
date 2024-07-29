@@ -9,7 +9,6 @@ namespace KitchenAPI.Handlers
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=KitchenDB;Integrated Security=True";
         public async Task<string> Create(Kitchen newKitchen)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -59,7 +58,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -86,7 +84,6 @@ namespace KitchenAPI.Handlers
         }
         public async Task<string> Delete(Kitchen newKitchen)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -98,7 +95,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -125,7 +121,6 @@ namespace KitchenAPI.Handlers
         {
             Kitchen newKitchen = new Kitchen();
 
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -138,7 +133,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -156,7 +150,6 @@ namespace KitchenAPI.Handlers
                     newKitchen.Name = rd.GetString(1);
                     newKitchen.Description = rd.GetString(2);
                 }
-                //KitchenList.Add(newKitchen);
 
                 await conn.CloseAsync();
 
@@ -164,7 +157,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return newKitchen;
@@ -174,7 +166,6 @@ namespace KitchenAPI.Handlers
         {
             List<Binding> KitchenList = new List<Binding>();
 
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -187,7 +178,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -215,7 +205,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return KitchenList;

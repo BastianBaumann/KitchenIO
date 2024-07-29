@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.Objects;
+using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -45,9 +46,8 @@ namespace Frontend.RequestSenders
                 }
             }
         }
-        public async Task<List<User>> GetUserByKitchen(Guid KitchenId)
+        public async Task<List<ClassLibrary.Objects.User>> GetUserByKitchen(Guid KitchenId)
         {
-            // GetUsersByKitchen /{ KitchenId}
             using (HttpClient client = new HttpClient())
             {
                 string url = $"https://localhost:7135/Bindings/GetUsersByKitchen/{KitchenId}";
@@ -62,7 +62,7 @@ namespace Frontend.RequestSenders
                     string responseBody = await response.Content.ReadAsStringAsync();
 
 
-                    List<User> answer = JsonConvert.DeserializeObject<List<User>>(responseBody);
+                    List<ClassLibrary.Objects.User> answer = JsonConvert.DeserializeObject<List<ClassLibrary.Objects.User>>(responseBody);
 
                     return answer;
                 }
@@ -70,127 +70,150 @@ namespace Frontend.RequestSenders
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return new List<User>();
+                    return new List<ClassLibrary.Objects.User>();
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return new List<User>();
+                    return new List<ClassLibrary.Objects.User>();
                 }
             }
         }
         public async Task<List<ClassLibrary.Objects.Binding>> getBindingsByUser(Guid UserId)
+        {
+            using (HttpClient client = new HttpClient())
             {
-                using (HttpClient client = new HttpClient())
+                string url = $"https://localhost:7135/Bindings/GetBindingsByUser/{UserId}";
+
+                try
                 {
-                    string url = $"https://localhost:7135/Bindings/GetBindingsByUser/{UserId}";
 
-                    try
-                    {
-
-                        HttpResponseMessage response = await client.GetAsync(url);
-                        response.EnsureSuccessStatusCode();
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
 
 
-                        string responseBody = await response.Content.ReadAsStringAsync();
+                    string responseBody = await response.Content.ReadAsStringAsync();
 
 
-                        List<ClassLibrary.Objects.Binding> answer = JsonConvert.DeserializeObject<List<ClassLibrary.Objects.Binding>>(responseBody);
+                    List<ClassLibrary.Objects.Binding> answer = JsonConvert.DeserializeObject<List<ClassLibrary.Objects.Binding>>(responseBody);
 
-                        return answer;
-                    }
-                    catch (HttpRequestException e)
-                    {
-                        Console.WriteLine("\nException Caught!");
-                        Console.WriteLine("Message :{0} ", e.Message);
-                        return new List<Binding>();
-                    }
-                    catch (JsonException e)
-                    {
-                        Console.WriteLine("\nJson Exception Caught!");
-                        Console.WriteLine("Message :{0} ", e.Message);
-                        return new List<Binding>();
-                    }
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return new List<Binding>();
+                }
+                catch (JsonException e)
+                {
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return new List<Binding>();
                 }
             }
+        }
         public async Task<string> CreateKitchen(Kitchen newKitchen)
+        {
+            using (HttpClient client = new HttpClient())
             {
-                using (HttpClient client = new HttpClient())
+                string url = "https://localhost:7135/Bindings/CreateKitchen";
+                try
                 {
-                    string url = "https://localhost:7135/Bindings/CreateKitchen";
-                    try
-                    {
-                        // Serialisiere das Produktobjekt in einen JSON-String
-                        string jsonProduct = JsonConvert.SerializeObject(newKitchen);
+                    string jsonProduct = JsonConvert.SerializeObject(newKitchen);
 
-                        // Erstelle den HttpContent mit dem JSON-String
-                        StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
+                    StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
 
-                        // Sende die POST-Anfrage
-                        HttpResponseMessage response = await client.PostAsync(url, content);
-                        response.EnsureSuccessStatusCode();
+                    HttpResponseMessage response = await client.PostAsync(url, content);
+                    response.EnsureSuccessStatusCode();
 
-                        // Lese die Antwort als String
-                        string responseBody = await response.Content.ReadAsStringAsync();
+                    string responseBody = await response.Content.ReadAsStringAsync();
 
-                        // Deserialisiere die Antwort in ein Product-Objekt
-                        string answer = JsonConvert.DeserializeObject<string>(responseBody);
+                    string answer = JsonConvert.DeserializeObject<string>(responseBody);
 
-                        return answer;
-                    }
-                    catch (HttpRequestException e)
-                    {
-                        Console.WriteLine("\nException Caught!");
-                        Console.WriteLine("Message :{0} ", e.Message);
-                        return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
-                    }
-                    catch (JsonException e)
-                    {
-                        Console.WriteLine("\nJson Exception Caught!");
-                        Console.WriteLine("Message :{0} ", e.Message);
-                        return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
-                    }
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return null;
+                }
+                catch (JsonException e)
+                {
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return null;
                 }
             }
+        }
         public async Task<string> CreateBind(ClassLibrary.Objects.Binding newBind)
         {
-                using (HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient())
+            {
+                string url = "https://localhost:7135/Bindings/BindKitchen";
+                try
                 {
-                    string url = "https://localhost:7135/Bindings/BindKitchen";
-                    try
-                    {
-                        // Serialisiere das Produktobjekt in einen JSON-String
-                        string jsonProduct = JsonConvert.SerializeObject(newBind);
+                    string jsonProduct = JsonConvert.SerializeObject(newBind);
 
-                        // Erstelle den HttpContent mit dem JSON-String
-                        StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
+                    StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
 
-                        // Sende die POST-Anfrage
-                        HttpResponseMessage response = await client.PostAsync(url, content);
-                        response.EnsureSuccessStatusCode();
+                    HttpResponseMessage response = await client.PostAsync(url, content);
+                    response.EnsureSuccessStatusCode();
 
-                        // Lese die Antwort als String
-                        string responseBody = await response.Content.ReadAsStringAsync();
+                    string responseBody = await response.Content.ReadAsStringAsync();
 
-                        // Deserialisiere die Antwort in ein Product-Objekt
-                        string answer = JsonConvert.DeserializeObject<string>(responseBody);
+                    string answer = JsonConvert.DeserializeObject<string>(responseBody);
 
-                        return answer;
-                    }
-                    catch (HttpRequestException e)
-                    {
-                        Console.WriteLine("\nException Caught!");
-                        Console.WriteLine("Message :{0} ", e.Message);
-                        return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
-                    }
-                    catch (JsonException e)
-                    {
-                        Console.WriteLine("\nJson Exception Caught!");
-                        Console.WriteLine("Message :{0} ", e.Message);
-                        return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
-                    }
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return null; 
+                }
+                catch (JsonException e)
+                {
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return null;
+                }
+            }
+        }
+        public async Task<string> DeleteBind(Guid UserId, Guid KitchenId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"https://localhost:7135/Bindings/DeleteBindUsery/{UserId}/{KitchenId}";
+
+                try
+                {
+
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    string answer = JsonConvert.DeserializeObject<string>(responseBody);
+
+                    return answer;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return e.Message;
+                }
+                catch (JsonException e)
+                {
+                    Console.WriteLine("\nJson Exception Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    return e.Message;
                 }
             }
         }
     }
+}

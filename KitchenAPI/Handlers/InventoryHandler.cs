@@ -10,7 +10,6 @@ namespace KitchenAPI.Handlers
 
         public async Task<string> Create(Product newProduct)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -22,7 +21,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -34,7 +32,6 @@ namespace KitchenAPI.Handlers
                 cmd.Parameters.AddWithValue("Id", newProduct.Id);
                 cmd.Parameters.AddWithValue("ProductId", newProduct.ProductId);
                 cmd.Parameters.AddWithValue("Amount", newProduct.Amount);
-                cmd.Parameters.AddWithValue("Weight", newProduct.Weight);
                 cmd.Parameters.AddWithValue("EP", newProduct.EP);
                 cmd.Parameters.AddWithValue("Owner", newProduct.Owner);
                 int result = cmd.ExecuteNonQuery();
@@ -54,7 +51,6 @@ namespace KitchenAPI.Handlers
         {
             List<Product> ProductList = new List<Product>();
 
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -67,7 +63,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -84,9 +79,8 @@ namespace KitchenAPI.Handlers
                     newPr.Id = rd.GetGuid(0);
                     newPr.ProductId = rd.GetGuid(1);
                     newPr.Amount = rd.GetDouble(2);
-                    newPr.Weight = rd.GetDouble(3);
-                    newPr.EP = rd.GetDateTime(4);
-                    newPr.Owner = rd.GetGuid(5);
+                    newPr.EP = rd.GetDateTime(3);
+                    newPr.Owner = rd.GetGuid(4);
 
                     ProductList.Add(newPr);
                 }
@@ -97,7 +91,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return ProductList;
@@ -105,7 +98,6 @@ namespace KitchenAPI.Handlers
         }
         public async Task<string> Update(Product newProduct)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -117,7 +109,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -128,7 +119,6 @@ namespace KitchenAPI.Handlers
 
                 cmd.Parameters.AddWithValue("Id", newProduct.Id);
                 cmd.Parameters.AddWithValue("Amount", newProduct.Amount);
-                cmd.Parameters.AddWithValue("Weight", newProduct.Weight);
                 cmd.Parameters.AddWithValue("EP", newProduct.EP);
                 cmd.Parameters.AddWithValue("Owner", newProduct.Owner);
 
@@ -145,9 +135,8 @@ namespace KitchenAPI.Handlers
                 return ex.ToString();
             }
         }
-        public async Task<string> Delete(Product newProduct)
+        public async Task<string> Delete(Guid newProduct)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -159,16 +148,15 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
 
-                SqlCommand cmd = new SqlCommand("DELETEE_Inventory", conn);
+                SqlCommand cmd = new SqlCommand("DELETE_Inventory", conn);
 
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("Id", newProduct.Id);
+                cmd.Parameters.AddWithValue("Id", newProduct);
                 int result = cmd.ExecuteNonQuery();
 
                 await conn.CloseAsync();
@@ -187,7 +175,6 @@ namespace KitchenAPI.Handlers
         {
             List<Product> products = new List<Product>();
 
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -200,7 +187,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -219,9 +205,8 @@ namespace KitchenAPI.Handlers
                     newPr.Id = rd.GetGuid(0);
                     newPr.ProductId = rd.GetGuid(1);
                     newPr.Amount = rd.GetDouble(2);
-                    newPr.Weight = rd.GetDouble(3);
-                    newPr.EP = rd.GetDateTime(4);
-                    newPr.Owner = rd.GetGuid(5);
+                    newPr.EP = rd.GetDateTime(3);
+                    newPr.Owner = rd.GetGuid(4);
 
                     products.Add(newPr);
 
@@ -233,7 +218,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return products;

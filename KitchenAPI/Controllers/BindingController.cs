@@ -17,10 +17,10 @@ namespace KitchenAPI.Controllers
             return Json(answer);
         }
 
-        [HttpPost("DeleteBindUsery/{UserId}")]
-        public async Task<JsonResult> DeleteBindingByUser(Guid UserId)
+        [HttpGet("DeleteBindUsery/{UserId}/{KitchenId}")]
+        public async Task<JsonResult> DeleteBindingByUser(Guid UserId, Guid KitchenId)
         {
-            string answer = await bindingHandler.DeleteBindingByUser(UserId);
+            string answer = await bindingHandler.DeleteBindingByUser(UserId, KitchenId);
             return Json(answer);
         }
 
