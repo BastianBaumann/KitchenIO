@@ -10,7 +10,6 @@ namespace KitchenAPI.Handlers
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=KitchenDB;Integrated Security=True";
         public async Task<string> Create(User newUser)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -61,7 +60,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -89,7 +87,6 @@ namespace KitchenAPI.Handlers
         }
         public async Task<string> Delete(Guid UserId)
         {
-            //try creating the connection string, gives back error message as String if it fails
             SqlConnection conn;
             try
             {
@@ -101,7 +98,6 @@ namespace KitchenAPI.Handlers
                 return e.ToString();
             }
 
-            //If connection string was created successfully, Insert the Location object into the database
             try
             {
                 await conn.OpenAsync();
@@ -126,30 +122,25 @@ namespace KitchenAPI.Handlers
         }
         public async Task<Guid> Login(string Name, string Password)
         {
-            Guid FoundGuid = Guid.Empty; // Standardwert für eine nicht gefundene GUID
+            Guid FoundGuid = Guid.Empty;
 
-            // Erstelle die Verbindung
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
                     await conn.OpenAsync();
 
-                    // Erstelle den SQL-Befehl und weise die Stored Procedure zu
                     using (SqlCommand cmd = new SqlCommand("LOGIN_User", conn))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        // Füge Parameter hinzu
                         cmd.Parameters.AddWithValue("@Name", Name);
                         cmd.Parameters.AddWithValue("@Password", Password);
 
-                        // Führe den Befehl aus
                         using (SqlDataReader rd = await cmd.ExecuteReaderAsync())
                         {
-                            if (await rd.ReadAsync()) // Überprüfen, ob es eine Zeile gibt
+                            if (await rd.ReadAsync()) 
                             {
-                                // Lese die GUID, wenn sie vorhanden ist
                                 if (!rd.IsDBNull(0))
                                 {
                                     FoundGuid = rd.GetGuid(0);
@@ -160,7 +151,6 @@ namespace KitchenAPI.Handlers
                 }
                 catch (Exception ex)
                 {
-                    // Fehlerprotokollierung
                     Console.WriteLine(ex);
                 }
             }
@@ -172,7 +162,6 @@ namespace KitchenAPI.Handlers
             User foundUser = new User();
 
 
-            //try creating the connection string, gives back empty list if fails
             SqlConnection conn;
             try
             {
@@ -185,7 +174,6 @@ namespace KitchenAPI.Handlers
             }
 
 
-            //read all locations in database
             try
             {
                 await conn.OpenAsync();
@@ -212,7 +200,6 @@ namespace KitchenAPI.Handlers
             }
             catch (Exception ex)
             {
-                //give back list that we have so far in case of an error
                 Console.WriteLine(ex);
                 await conn.CloseAsync();
                 return foundUser;

@@ -16,38 +16,31 @@ namespace Frontend.RequestSenders
         {
             using (HttpClient client = new HttpClient())
             {
-                // URL mit Barcode als Query-Parameter
                 string url = $"https://localhost:7135/API/GetRecipes/{food}/{Allergies}";
 
                 try
                 {
-                    // Sende die GET-Anfrage
                     HttpResponseMessage response = await client.GetAsync(url);
 
-                    // Sicherstellen, dass der Statuscode Erfolg signalisiert
                     response.EnsureSuccessStatusCode();
 
-                    // Antwortinhalt als String lesen
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Deserialisieren der JSON-Antwort in ein ProductRef-Objekt
                     List<Recipe> answer = JsonConvert.DeserializeObject<List<Recipe>>(responseBody);
 
                     return answer;
                 }
                 catch (HttpRequestException e)
                 {
-                    // Fehlerbehandlung bei HTTP-Anfragen
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return new List<Recipe>(); // Rückgabe von null statt einer leeren Instanz, um anzuzeigen, dass ein Fehler aufgetreten ist
+                    return new List<Recipe>(); 
                 }
                 catch (JsonException e)
                 {
-                    // Fehlerbehandlung bei JSON-Verarbeitung
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return new List<Recipe>(); // Rückgabe von null statt einer leeren Instanz
+                    return new List<Recipe>();
                 }
             }
         }

@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Frontend.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddUserScreen.xaml
-    /// </summary>
     public partial class AddUserScreen : Window
     {
         KitchenRequests KitchenRequestMaker = new KitchenRequests();
@@ -43,13 +40,13 @@ namespace Frontend.Windows
             if(newBind.UserId != Guid.Empty)
             {
                 var res = await KitchenRequestMaker.CreateBind(newBind);
-                DialogResult = true; // Close the dialog with DialogResult set to false
+                DialogResult = true; 
                 Close();
             }
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false; // Close the dialog with DialogResult set to false
+            DialogResult = false;
             Close();
         }
     }

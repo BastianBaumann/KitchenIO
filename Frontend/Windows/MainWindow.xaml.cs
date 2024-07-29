@@ -21,9 +21,6 @@ using KitchenIO.Objects;
 
 namespace Frontend
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         Guid LoggedInUserID = Guid.NewGuid();
@@ -84,7 +81,7 @@ namespace Frontend
             {
                 Frame frame = new Frame();
                 KitchenPage kitchenPage = new KitchenPage(bind.KitchenId);
-                frame.Navigate(kitchenPage); // Navigieren zur Page
+                frame.Navigate(kitchenPage);
 
                 TabItem newKitchenTab = new TabItem
                 {
@@ -92,7 +89,6 @@ namespace Frontend
                     Content = frame
                 };
 
-                // Hinzufügen des TabItems zum TabControl
                 KitchenTabControl.Items.Add(newKitchenTab);
             }
         }
@@ -104,6 +100,7 @@ namespace Frontend
 
             if (result == true)
             {
+
                 createKitchenTabs();
             }
         }
@@ -153,7 +150,6 @@ namespace Frontend
 
             Product newProduct = new Product();
 
-            //int Barcode = Convert.ToInt32(newProductbarcode.Text);
             ProductRef foundProductRef = await ProductRequestMaker.GetProductRefByBarcode(newProductbarcode.Text);
 
             if(foundProductRef.Id.ToString() != "")
@@ -175,13 +171,12 @@ namespace Frontend
         }
         public async void webcamtest(object sender, RoutedEventArgs e)
         {
-            BarcodeScannerWebcam AddItemDialog = new BarcodeScannerWebcam();
+            BarcodeScannerWebcam CamDialog = new BarcodeScannerWebcam();
 
-            bool? result = AddItemDialog.ShowDialog();
-
+            bool? result = CamDialog.ShowDialog();
             if (result == true)
             {
-                createKitchenTabs();
+                //
             }
         }
     }

@@ -19,20 +19,15 @@ namespace Frontend.RequestSenders
                 string url = "https://localhost:7135/API/AddProduct";
                 try
                 {
-                    // Serialisiere das Produktobjekt in einen JSON-String
                     string jsonProduct = JsonConvert.SerializeObject(product);
 
-                    // Erstelle den HttpContent mit dem JSON-String
                     StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
 
-                    // Sende die POST-Anfrage
                     HttpResponseMessage response = await client.PostAsync(url, content);
                     response.EnsureSuccessStatusCode();
 
-                    // Lese die Antwort als String
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Deserialisiere die Antwort in ein Product-Objekt
                     string answer = JsonConvert.DeserializeObject<string>(responseBody);
 
                     return answer;
@@ -41,13 +36,13 @@ namespace Frontend.RequestSenders
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null; 
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null;
                 }
             }
 
@@ -164,20 +159,15 @@ namespace Frontend.RequestSenders
                 string url = "https://localhost:7135/API/UpdateInventory";
                 try
                 {
-                    // Serialisiere das Produktobjekt in einen JSON-String
                     string jsonProduct = JsonConvert.SerializeObject(productToUpdate);
 
-                    // Erstelle den HttpContent mit dem JSON-String
                     StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
 
-                    // Sende die POST-Anfrage
                     HttpResponseMessage response = await client.PostAsync(url, content);
                     response.EnsureSuccessStatusCode();
 
-                    // Lese die Antwort als String
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Deserialisiere die Antwort in ein Product-Objekt
                     string answer = JsonConvert.DeserializeObject<string>(responseBody);
 
                     return answer;
@@ -186,13 +176,13 @@ namespace Frontend.RequestSenders
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null;
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null;
                 }
             }
         }

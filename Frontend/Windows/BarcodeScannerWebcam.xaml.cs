@@ -20,9 +20,6 @@ using ZXing;
 
 namespace Frontend.Windows
 {
-    /// <summary>
-    /// Interaction logic for BarcodeScannerWebcam.xaml
-    /// </summary>
     public partial class BarcodeScannerWebcam : Window
     {
         private VideoCapture _capture;
@@ -36,10 +33,10 @@ namespace Frontend.Windows
             {
                 Options = new ZXing.Common.DecodingOptions
                 {
-                    TryHarder = true, // Versuche, mehr Zeit in die Decodierung zu investieren
+                    TryHarder = true,
                     PossibleFormats = new List<ZXing.BarcodeFormat>
             {
-                ZXing.BarcodeFormat.CODE_128, // Füge andere Formate hinzu, falls benötigt
+                ZXing.BarcodeFormat.CODE_128,
                 ZXing.BarcodeFormat.QR_CODE
             }
                 }
@@ -48,9 +45,7 @@ namespace Frontend.Windows
 
         private void InitializeWebCam()
         {
-            _capture = new VideoCapture(0); // 0 für die Standard-Webcam
-
-            // Event, das aufgerufen wird, wenn ein neues Bild verfügbar ist
+            _capture = new VideoCapture(0);
             _capture.ImageGrabbed += ProcessFrame;
             _capture.Start();
         }
@@ -62,27 +57,25 @@ namespace Frontend.Windows
                 _capture.Retrieve(frame);
 
 
-                // Convert the frame to Bitmap
                 var image = frame.ToImage<Bgr, byte>();
                 Bitmap bitmap = image.ToBitmap();
                 Bitmap bitmap2 = new Bitmap(@"C:\KitchenIO\Frontend\demo.png");
-                Bitmap bitmap3 = new Bitmap(@"C:\KitchenIO\FRontend\tetImage.jpg");
+                Bitmap bitmap3 = new Bitmap(@"C:\KitchenIO\Frontend\tetImage.jpg");
 
 
-                // Decode the barcode
-                var result = _barcodeReader.Decode(bitmap2);
+                var result = _barcodeReader.Decode(bitmap);
 
                 if (result != null)
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        // Display barcode result in the UI
-                        barcodeTextBlock.Text = result.Text; // Ensure 'barcodeTextBlock' is a TextBlock control
+                        barcodeTextBlock.Text = result.Text;
+                        DialogResult = true;
+                        Close();
                     });
                 }
 
 
-                // Update the UI with the current frame
                 Dispatcher.Invoke(() =>
                 {
                     videoImage.Source = BitmapToImageSource(bitmap);

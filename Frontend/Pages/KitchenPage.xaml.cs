@@ -21,9 +21,6 @@ using System.Windows.Shapes;
 
 namespace Frontend.Pages
 {
-    /// <summary>
-    /// Interaction logic for KitchenPage.xaml
-    /// </summary>
     public partial class KitchenPage : Page
     {
         ObservableCollection<Recipe> recipeList = new ObservableCollection<Recipe>();
@@ -129,7 +126,7 @@ namespace Frontend.Pages
         public async void ValidateFoodItems(object sender, RoutedEventArgs e)
         {
             List<Product> FoodsToCheck = new List<Product>();
-            FoodsToCheck = await ProductRequestMaker.validateKitchenFoods(KitchenId);
+            FoodsToCheck = await InventoryerquestMaker.VerifyFood(KitchenId);
 
             CheckItems AddItemDialog = new CheckItems(FoodsToCheck);
 

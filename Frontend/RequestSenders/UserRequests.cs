@@ -21,35 +21,30 @@ namespace Frontend.RequestSenders
                 string url = "https://localhost:7135/API/CreateUser";
                 try
                 {
-                    // Serialisiere das User-Objekt in einen JSON-String
                     string jsonUser = JsonConvert.SerializeObject(newUser);
 
-                    // Erstelle den HttpContent mit dem JSON-String
                     StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
 
-                    // Sende die POST-Anfrage
                     HttpResponseMessage response = await client.PostAsync(url, content);
                     response.EnsureSuccessStatusCode();
 
-                    // Lese die Antwort als String
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Optional: Überprüfen Sie die Antwort auf mögliche Fehler
                     Console.WriteLine("Response: " + responseBody);
 
-                    return responseBody; // Direkt den Antwort-String zurückgeben, wenn kein weiteres Parsing notwendig ist
+                    return responseBody;
                 }
                 catch (HttpRequestException e)
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return "Error"; // Oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return "Error";
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return "Error"; // Oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return "Error"; 
                 }
             }
         }
@@ -96,38 +91,31 @@ namespace Frontend.RequestSenders
         {
             using (HttpClient client = new HttpClient())
             {
-                // URL mit Barcode als Query-Parameter
                 string url = $"https://localhost:7135/API/GetUserByName/{name}";
 
                 try
                 {
-                    // Sende die GET-Anfrage
                     HttpResponseMessage response = await client.GetAsync(url);
 
-                    // Sicherstellen, dass der Statuscode Erfolg signalisiert
                     response.EnsureSuccessStatusCode();
 
-                    // Antwortinhalt als String lesen
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Deserialisieren der JSON-Antwort in ein ProductRef-Objekt
                     User answer = JsonConvert.DeserializeObject<User>(responseBody);
 
                     return answer.Id;
                 }
                 catch (HttpRequestException e)
                 {
-                    // Fehlerbehandlung bei HTTP-Anfragen
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return Guid.Empty; // Rückgabe von null statt einer leeren Instanz, um anzuzeigen, dass ein Fehler aufgetreten ist
+                    return Guid.Empty; 
                 }
                 catch (JsonException e)
                 {
-                    // Fehlerbehandlung bei JSON-Verarbeitung
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return Guid.Empty; // Rückgabe von null statt einer leeren Instanz
+                    return Guid.Empty; 
                 }
             }
         }

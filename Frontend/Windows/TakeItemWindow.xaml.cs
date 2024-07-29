@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Frontend.Windows
 {
-    /// <summary>
-    /// Interaction logic for TakeItemWindow.xaml
-    /// </summary>
     public partial class TakeItemWindow : Window
     {
         InventoryRequests ItemRequests = new InventoryRequests();
@@ -40,7 +37,7 @@ namespace Frontend.Windows
 
                 if (result == "succuess")
                 {
-                    DialogResult = true; // Close the dialog with DialogResult set to true
+                    DialogResult = true; 
                     Close();
                 }
             }
@@ -50,7 +47,7 @@ namespace Frontend.Windows
 
                 if (result == "succuess")
                 {
-                    DialogResult = true; // Close the dialog with DialogResult set to true
+                    DialogResult = true; 
                     Close();
                 }
             }

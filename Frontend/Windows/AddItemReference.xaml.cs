@@ -18,9 +18,6 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Frontend.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddItemReference.xaml
-    /// </summary>
     public partial class AddItemReference : Window
     {
         ProductRequests ProductRequestMaker = new ProductRequests();
@@ -154,13 +151,13 @@ namespace Frontend.Windows
             
             if (result == "succuess")
             {
-                DialogResult = true; // Close the dialog with DialogResult set to true
+                DialogResult = true; 
                 Close();
             }
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false; // Close the dialog with DialogResult set to false
+            DialogResult = false;
             Close();
         }
     }

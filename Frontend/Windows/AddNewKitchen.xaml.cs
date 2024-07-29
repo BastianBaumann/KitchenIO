@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace Frontend.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddNewKitchen.xaml
-    /// </summary>
     public partial class AddNewKitchen : Window
     {
         Guid UserId;
@@ -46,12 +43,12 @@ namespace Frontend.Windows
 
             string result = await KitchenRequestMaker.CreateKitchen(newKitchen);
             string newResult = await KitchenRequestMaker.CreateBind(newBind);
-            DialogResult = true; // Close the dialog with DialogResult set to true
+            DialogResult = true; 
             Close();
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false; // Close the dialog with DialogResult set to false
+            DialogResult = false; 
             Close();
         }
     }

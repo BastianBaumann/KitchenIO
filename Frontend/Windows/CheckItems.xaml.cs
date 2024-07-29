@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Frontend.Windows
 {
-    /// <summary>
-    /// Interaction logic for CheckItems.xaml
-    /// </summary>
     public partial class CheckItems : Window
     {
         public CheckItems(List<Product> products)
@@ -27,7 +24,7 @@ namespace Frontend.Windows
         }
         public void CloseWindow(object sender, RoutedEventArgs e)
         {
-            DialogResult = true; // Close the dialog with DialogResult set to false
+            DialogResult = true; 
             Close();
         }
     }

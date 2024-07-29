@@ -48,7 +48,6 @@ namespace Frontend.RequestSenders
         }
         public async Task<List<ClassLibrary.Objects.User>> GetUserByKitchen(Guid KitchenId)
         {
-            // GetUsersByKitchen /{ KitchenId}
             using (HttpClient client = new HttpClient())
             {
                 string url = $"https://localhost:7135/Bindings/GetUsersByKitchen/{KitchenId}";
@@ -122,20 +121,15 @@ namespace Frontend.RequestSenders
                 string url = "https://localhost:7135/Bindings/CreateKitchen";
                 try
                 {
-                    // Serialisiere das Produktobjekt in einen JSON-String
                     string jsonProduct = JsonConvert.SerializeObject(newKitchen);
 
-                    // Erstelle den HttpContent mit dem JSON-String
                     StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
 
-                    // Sende die POST-Anfrage
                     HttpResponseMessage response = await client.PostAsync(url, content);
                     response.EnsureSuccessStatusCode();
 
-                    // Lese die Antwort als String
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Deserialisiere die Antwort in ein Product-Objekt
                     string answer = JsonConvert.DeserializeObject<string>(responseBody);
 
                     return answer;
@@ -144,13 +138,13 @@ namespace Frontend.RequestSenders
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null;
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null;
                 }
             }
         }
@@ -161,20 +155,15 @@ namespace Frontend.RequestSenders
                 string url = "https://localhost:7135/Bindings/BindKitchen";
                 try
                 {
-                    // Serialisiere das Produktobjekt in einen JSON-String
                     string jsonProduct = JsonConvert.SerializeObject(newBind);
 
-                    // Erstelle den HttpContent mit dem JSON-String
                     StringContent content = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
 
-                    // Sende die POST-Anfrage
                     HttpResponseMessage response = await client.PostAsync(url, content);
                     response.EnsureSuccessStatusCode();
 
-                    // Lese die Antwort als String
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Deserialisiere die Antwort in ein Product-Objekt
                     string answer = JsonConvert.DeserializeObject<string>(responseBody);
 
                     return answer;
@@ -183,13 +172,13 @@ namespace Frontend.RequestSenders
                 {
                     Console.WriteLine("\nException Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null; 
                 }
                 catch (JsonException e)
                 {
                     Console.WriteLine("\nJson Exception Caught!");
                     Console.WriteLine("Message :{0} ", e.Message);
-                    return null; // oder eine andere geeignete Rückgabewert, falls erforderlich
+                    return null;
                 }
             }
         }

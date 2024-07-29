@@ -25,21 +25,21 @@ namespace KitchenAPI.Controllers
         }
 
 
-        [HttpPost("CreateProduct")] //Create a location
+        [HttpPost("CreateProduct")] 
         public async Task<JsonResult> CreateProduct([FromBody] ProductRef newProduct)
         {
             string answer = await productHandler.Create(newProduct);
             return Json(answer);
         }
 
-        [HttpPost("UpdateProduct")] //Create a location
+        [HttpPost("UpdateProduct")] 
         public async Task<JsonResult> UpdateProduct([FromBody] ProductRef Product)
         {
             string answer = await productHandler.Update(Product);
             return Json(answer);
         }
 
-        [HttpPost("DeleteProduct")] //Create a location
+        [HttpPost("DeleteProduct")] 
         public async Task<JsonResult> DeleteInventory([FromBody] ProductRef Product)
         {
             string answer = await productHandler.Delete(Product);
