@@ -191,7 +191,7 @@ namespace KitchenAPI.Handlers
         public async Task<List<Recipe>> GetAllRecipes(string query,string allergies)
         {
 
-            string api_key = "GDhZ4/8euUTcTtCOKOjlKA==UkjauVzTI4jMJJ8H";
+            string api_key = "//";
 
             List<Recipe> TotalList = new List<Recipe>();
             List<Recipe> ReturnList = new List<Recipe>();
