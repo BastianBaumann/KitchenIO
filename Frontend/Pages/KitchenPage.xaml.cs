@@ -84,7 +84,7 @@ namespace Frontend.Pages
         }
         public async void GetRecipes(object sender, RoutedEventArgs e)
         {
-            string food = "Pork";
+            string food = "Cheese";
 
             foreach (User user in userList)
             {

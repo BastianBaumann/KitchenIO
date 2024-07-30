@@ -6,11 +6,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Emgu.CV;
@@ -63,7 +58,7 @@ namespace Frontend.Windows
                 Bitmap bitmap3 = new Bitmap(@"C:\KitchenIO\Frontend\tetImage.jpg");
 
 
-                var result = _barcodeReader.Decode(bitmap);
+                var result = _barcodeReader.Decode(bitmap2);
 
                 if (result != null)
                 {
